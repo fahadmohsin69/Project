@@ -1,0 +1,76 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+  </head>
+
+  <body>
+    <h1>Welcome to my website!</h1>
+    <button id="engin-login-button">Engin Log in</button>
+    <button id="user-login-button">User Log in</button>
+
+    <script>
+      // ############### Engineer Side ###############
+
+      // Get login button and form container elements
+      const enginButton = document.getElementById("engin-login-button");
+
+      // Add click event listener to login button
+      enginButton.addEventListener("click", () => {
+        // Load login form template
+        fetch("/engin-log-reg/")
+        .then(response => response.text())
+        .then(html => {
+
+          // const fontAwesomeScript = document.createElement("script");
+          // fontAwesomeScript.src = "https://kit.fontawesome.com/fada0ed988.js";
+          // fontAwesomeScript.setAttribute("crossorigin", "anonymous");
+          // document.head.appendChild(fontAwesomeScript);
+
+          const script = document.createElement("script");
+          script.src = "{% static 'engineer/js/engineer_log_reg.js' %}";
+          document.head.appendChild(script)
+
+          document.documentElement.innerHTML = html;
+        })
+        .catch(error => {
+          console.error("Register Form request failed:", error);
+        });
+      });
+
+      // ############### Engineer Side ###############
+
+      // Get login button and form container elements
+      const userButton = document.getElementById("user-login-button");
+
+      // Add click event listener to login button
+      userButton.addEventListener("click", () => {
+        // Load login form template
+        fetch("/user-log-reg/")
+        .then(response => response.text())
+        .then(html => {
+
+          // const fontAwesomeScript = document.createElement("script");
+          // fontAwesomeScript.src = "https://kit.fontawesome.com/fada0ed988.js";
+          // fontAwesomeScript.setAttribute("crossorigin", "anonymous");
+          // document.head.appendChild(fontAwesomeScript);
+
+          const script = document.createElement("script");
+          script.src = "{% static 'user/js/user_log_reg.js' %}";
+          document.head.appendChild(script)
+
+          document.documentElement.innerHTML = html;
+        })
+        .catch(error => {
+          console.error("Register Form request failed:", error);
+        });
+      });
+
+
+    </script>
+  </body>
+</html>
