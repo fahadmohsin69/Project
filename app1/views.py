@@ -15,7 +15,10 @@ from django.core.mail import send_mail
 
 # Create your views here.
 def IndexPage(request):
-    return render(request,'main/main.html')
+    return render(request,'main/index.html')
+
+def home_page(request):
+    return render(request,'main_pages/home.html')
 
 def contact_us(request):
     if request.method == 'POST':
