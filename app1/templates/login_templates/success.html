@@ -1,0 +1,31 @@
+{% extends 'login_templates/base.html' %}
+
+{% block title %}Success{% endblock  %}
+
+{% block content %}
+
+<div class="global-container">
+	<div class="card login-form">
+	
+		<div class="card-body">
+		<h4 class="card-title text-center">Email Successfully Verified!</h4>
+		<div class="card-text">
+			{% if messages %}
+				{% for message in messages %}
+				<div class="alert alert-info">
+					{{message}}
+				</div>
+				{% endfor %}
+			{% endif %}
+			<form>				
+				<div class="sign-up">
+					 <a href="{% url 'login' %}" style="text-decoration: underline;">Login now!</a>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+</div>
+
+
+{% endblock %}

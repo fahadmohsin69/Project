@@ -1,4 +1,6 @@
-{% extends 'base.html' %}
+{% extends 'login_templates/base.html' %}
+
+{% block title %}Error{% endblock  %}
 
 {% block content %}
 
@@ -16,8 +18,8 @@
 
 		<h3 class="card-title text-center">Error 404!</h3>
 		<div class="card-text">
-            <a href="/login" class="btn btn-success" style="text-align: center;">Back</a>
-
+            <a href="/login" class="btn btn-primary btn-block" style="position: relative;">Go Back to Login Page.</a>
+            <!-- <button  class="btn btn-primary btn-block">Sign in</button> -->
 		</div>
 	</div>
 </div>

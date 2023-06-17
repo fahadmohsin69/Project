@@ -22,6 +22,22 @@ def IndexPage(request):
 def home_page(request):
     return render(request,'main_pages/home.html')
 
+# Success Template view
+def success(request):
+    return render(request, "login_templates/success.html")
+
+# token_send Template view
+def token_send(request):
+    return render(request, "login_templates/token_send.html")
+
+# Update Password
+def update(request):
+    return render(request, "login_templates/update.html")
+
+# Error Page
+def error(request):
+    return render(request, "login_templates/error.html")
+
 def contact_us(request):
     if request.method == 'POST':
         if request.method == 'POST':
@@ -97,7 +113,6 @@ def User_Log_Reg_Tem(request):
 
 # Login view
 def login(request):
-
     try:
         if request.method == 'POST':
             username = request.POST.get('username')
@@ -105,16 +120,12 @@ def login(request):
             user = authenticate(request, username=username, password=password)
 
             profile_obj = Profile.objects.filter(user = user).first()
-            print(1)
+
             if user is not None:
-                print(2)
                 if profile_obj.is_verified:
-                    print(3)
                     Profile.objects.update(reset_password=False)
-                    print(4)
                     auth_login(request,user)
-                    print(5)
-                    return redirect('/success')
+                    return redirect('/')
                 else:
                     messages.error(request, 'You are not Verified! Please check Email.')
             else:
@@ -123,17 +134,16 @@ def login(request):
         messages.error(request, 'An Error Occured!')
         return redirect('/login')
 
-    return render(request, "login.html")
+    return render(request, "login_templates/login.html")
 
 # SignUp view
 def signup(request):
-
     if request.method == 'POST':
 
         username = request.POST.get('username')
         email = request.POST.get('email')
         password1 = request.POST.get('password1')
-        # password2 = request.POST.get('password2')
+        password2 = request.POST.get('password2')
 
         try:
             if User.objects.filter(username=username).first():
@@ -152,13 +162,13 @@ def signup(request):
                 messages.add_message(request, messages.ERROR, 'Email is taken, try another one!')
                 return redirect('signup')
 
-            # if len(password1) < 8:
-            #     messages.add_message(request, messages.ERROR, 'Password should be atleast 8 characters, should be alpha numeric')
-            #     return redirect('signup')
+            if len(password1) < 8:
+                messages.add_message(request, messages.ERROR, 'Password should be atleast 8 characters, should be alpha numeric')
+                return redirect('signup')
         
-            # if password1 != password2:
-            #     messages.add_message(request, messages.ERROR, 'Password does not match')
-            #     return redirect('register')
+            if password1 != password2:
+                messages.add_message(request, messages.ERROR, 'Password does not match')
+                return redirect('signup')
             
             user_obj = User.objects.create_user(username=username, email=email, password=password1)
             user_obj.set_password(password1)
@@ -176,22 +186,7 @@ def signup(request):
         except Exception as e:
             print(e)
 
-    return render(request, "signup.html")
-
-
-
-# Success Template view
-def success(request):
-    return render(request, "success.html")
-
-# token_send Template view
-def token_send(request):
-    return render(request, "token_send.html")
-
-# Error Page
-def error(request):
-    return render(request, "error.html")
-
+    return render(request, "login_templates/signup.html")
 
 # Verification for Email
 def verification_email(email,token, username):
@@ -220,3 +215,93 @@ def verify(request, auth_token):
     except Exception as e:
         print(e)
         return redirect('/login')
+    
+
+# Forgot Password
+def forgot_password(request):
+    if request.method == 'POST':
+        email = request.POST.get('email')
+
+        if User.objects.filter(email=email).first():
+
+            if Profile.objects.filter(is_verified=True):
+
+                data = User.objects.get(email = email)
+                auth_token = str(uuid.uuid4())
+                
+                Profile.objects.update(auth_token = auth_token)
+            
+                request.session['email'] = email
+                username = data.username
+
+                messages.success(request, 'We have sent you an Email with the Link!')
+
+                password_verify(email, auth_token, username)
+                return redirect('update')    
+            else:
+                messages.error(request, 'User is not verified yet!')
+                return redirect('forgot_password')
+        
+        else:
+            messages.error(request, "Invalid Email! Please enter valid E-mail")
+            return redirect('forgot_password')
+        
+    return render(request, 'login_templates/forgot_password.html')
+
+# Password Verify
+def password_verify(email,token, username):
+    subject = 'Request for Password Change!'
+    message = f'Hi {username}! , Please use this link to reset your password: http://127.0.0.1:8000/change_password/{token}'
+    email_from = settings.EMAIL_HOST_USER
+    recipent_list = [email]
+    send_mail(subject, message, email_from, recipent_list)
+
+# Reset Password 
+def change_password(request, auth_token):
+    try:
+        profile_obj = Profile.objects.filter(auth_token = auth_token).first()
+        if profile_obj:
+            profile_obj.reset_password = True
+            profile_obj.save()
+            messages.success(request, 'Email Verified! Now you can change your Password.')
+            return redirect('reset_password')
+        else:
+            return redirect('error')
+    except Exception as e:
+        print(e)
+
+    return redirect('error')
+
+# Reset Password
+def reset_password(request):
+    email = request.session['email']
+
+    if request.method == 'POST':
+        try:
+            if Profile.objects.filter(reset_password=True):
+
+                password = request.POST.get('password1')
+                password1 = request.POST.get('password2')
+                
+                if len(password) < 8:
+                    messages.add_message(request, messages.ERROR, 'Password should be atleast 8 characters, should be alpha numeric')
+                    return redirect('reset_password')
+
+                if password != password1:
+                    messages.add_message(request, messages.ERROR, 'Password does not match')
+                    return redirect('reset_password')
+
+                user = User.objects.filter(email=email).first()
+                user.set_password(password1)
+                user.save()
+
+                messages.success(request, 'Password Changed Successfully!')
+                return redirect('login')
+            
+            else:
+                messages.error(request, 'Email not verified yet!')
+        except:
+                messages.error(request, 'Update Error')
+                return redirect('error')
+        
+    return render(request, 'login_templates/reset_password.html')
