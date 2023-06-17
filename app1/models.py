@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 from django.db import models
@@ -55,4 +56,16 @@ class User(models.Model):
     dob = models.CharField(max_length = 50)
     gender = models.CharField(max_length = 50)
     profile_pic = models.ImageField(upload_to = "app1/img/User")    
+
+
+#For Email Verification
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    auth_token = models.CharField(max_length=100)
+    is_verified = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+    reset_password = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.user.username
     
