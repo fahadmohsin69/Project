@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
+from django.contrib.auth.models import User
 from .models import ContactMessage
 from django.contrib import messages
-from django.contrib.auth.models import User
 
 from .models import Profile
 from .forms import *
@@ -132,14 +132,23 @@ def signup(request):
             #     messages.add_message(request, messages.ERROR, 'Password does not match')
             #     return redirect('register')
             
-            user_obj = User.objects.create(username=username, email=email)
-            user_obj.set_password(password1)
-
+            user_obj = User.objects.create_user(username=username, email=email, password=password1)
+            # user_obj.set_password(password1)
+            
+            print(1)
+            print(user_obj)
             auth_token = str(uuid.uuid4())
-
-            profile_obj = Profile.objects.create(user = user_obj, auth_token = str(uuid.uuid4))
+            
+            print(auth_token)
+            print(2)
+            
+            profile_obj = Profile.objects.create(user = user_obj, auth_token = auth_token)
+            print(3)
+            
+            print(auth_token)
+            print(4)
             profile_obj.save()
-            return redirect('token_send')
+            return redirect('/token_send')
 
             # # verification_email(email, auth_token, username)
             # messages.success(request, 'Verification Email Sent! Check your Mail.')
