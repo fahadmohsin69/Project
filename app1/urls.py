@@ -14,7 +14,14 @@ urlpatterns = [
     path("user-log-reg/", views.User_Log_Reg_Tem, name="engin_log_reg"),
 
     path("login/", views.login, name="login"),
+    
     path("signup/", views.signup, name="signup"),
+    
     path("success/", views.success, name="success"),
+    
     path("token_send/", views.token_send, name="token_send"),
+
+    path('error', views.error, name='error'),
+
+    path('verify/<auth_token>', views.verify, name='verify'),
 ]

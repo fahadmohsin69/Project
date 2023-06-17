@@ -112,13 +112,13 @@ def signup(request):
                 messages.add_message(request, messages.ERROR, 'Username is already taken')
                 return redirect('signup')
 
-            # if not username:
-            #     messages.add_message(request, messages.ERROR, 'Username is required!')
-            #     return redirect('signup')
+            if not username:
+                messages.add_message(request, messages.ERROR, 'Username is required!')
+                return redirect('signup')
 
-            # if not email:
-            #     messages.add_message(request, messages.ERROR, 'Email is required!')
-            #     return redirect('signup')
+            if not email:
+                messages.add_message(request, messages.ERROR, 'Email is required!')
+                return redirect('signup')
             
             if User.objects.filter(email=email).first():
                 messages.add_message(request, messages.ERROR, 'Email is taken, try another one!')
@@ -133,30 +133,24 @@ def signup(request):
             #     return redirect('register')
             
             user_obj = User.objects.create_user(username=username, email=email, password=password1)
-            # user_obj.set_password(password1)
-            
-            print(1)
-            print(user_obj)
-            auth_token = str(uuid.uuid4())
-            
-            print(auth_token)
-            print(2)
-            
-            profile_obj = Profile.objects.create(user = user_obj, auth_token = auth_token)
-            print(3)
-            
-            print(auth_token)
-            print(4)
-            profile_obj.save()
-            return redirect('/token_send')
+            user_obj.set_password(password1)
 
-            # # verification_email(email, auth_token, username)
-            # messages.success(request, 'Verification Email Sent! Check your Mail.')
+            auth_token = str(uuid.uuid4())
+
+            profile_obj = Profile.objects.create(user = user_obj, auth_token = auth_token)
+            profile_obj.save()
+
+            verification_email(email, auth_token, username)
+            messages.success(request, 'Verification Email Sent! Check your Mail.')
+            return redirect('/token_send')
+            
         
         except Exception as e:
             print(e)
 
     return render(request, "signup.html")
+
+
 
 # Success Template view
 def success(request):
@@ -166,27 +160,29 @@ def success(request):
 def token_send(request):
     return render(request, "token_send.html")
 
-
+# Error Page
+def error(request):
+    return render(request, "error.html")
 
 
 # Verification for Email
 def verification_email(email,token, username):
-    subject = 'Your account needs to be verified'
+    subject = 'Your account needs to be verified!'
     message = f'Hi {username}! , Please use this link to verify your account http://127.0.0.1:8000/verify/{token}'
     email_from = settings.EMAIL_HOST_USER
     recipent_list = [email]
     send_mail(subject, message, email_from, recipent_list)
 
-# Verify Email Token
-# def verify(request, auth_token):
-#     try:
-#         profile_obj = UserMaster.objects.filter(auth_token = auth_token).first()
-#         if profile_obj:
-#             profile_obj.is_verified = True
-#             profile_obj.save()
-#             messages.success(request, 'Your Account has been Verified!')
-#             return redirect('login_signup')
-#         else:
-#             return redirect('error')
-#     except Exception as e:
-#         print(e)
+#Verify Email Token
+def verify(request, auth_token):
+    try:
+        profile_obj = Profile.objects.filter(auth_token = auth_token).first()
+        if profile_obj:
+            profile_obj.is_verified = True
+            profile_obj.save()
+            messages.success(request, 'Hurray! Your Account has been Verified!')
+            return redirect('/')
+        else:
+            return redirect('error')
+    except Exception as e:
+        print(e)
