@@ -7,8 +7,16 @@
 	<div class="card-body">
 		<h3 class="card-title text-center">Verification Code Sent!</h3>
 		<div class="card-text">
+
+			{% if messages %}
+				{% for message in messages %}
+				<div class="alert alert-info">
+					{{message}}
+				</div>
+				{% endfor %}
+			{% endif %}
+
 			<form>
-				<button type="submit" class="btn btn-primary btn-block">Check your Email!</button>
 				
 				<div class="sign-up">
 					Already have an account? <a href="{% url 'login' %}">Login now!</a>

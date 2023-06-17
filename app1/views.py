@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from .models import ContactMessage
 from django.contrib import messages
+from django.contrib.auth import authenticate, login as auth_login, logout
 
 from .models import Profile
 from .forms import *
@@ -13,7 +14,8 @@ from django.conf import settings
 from django.core.mail import send_mail
 
 
-# Create your views here.
+############################ Create your views here ##################################
+
 def IndexPage(request):
     return render(request,'main/index.html')
 
@@ -40,7 +42,7 @@ def contact_us(request):
 def Engin_Log_Reg_Tem(request):
     return render(request, "engineer/engineer_log_reg.html")
 
-############### User Side ###############
+############### User Side ##################
 
 def User_Log_Reg_Tem(request):
     if request.method == 'POST':
@@ -95,6 +97,32 @@ def User_Log_Reg_Tem(request):
 
 # Login view
 def login(request):
+
+    try:
+        if request.method == 'POST':
+            username = request.POST.get('username')
+            password = request.POST.get('password1')
+            user = authenticate(request, username=username, password=password)
+
+            profile_obj = Profile.objects.filter(user = user).first()
+            print(1)
+            if user is not None:
+                print(2)
+                if profile_obj.is_verified:
+                    print(3)
+                    Profile.objects.update(reset_password=False)
+                    print(4)
+                    auth_login(request,user)
+                    print(5)
+                    return redirect('/success')
+                else:
+                    messages.error(request, 'You are not Verified! Please check Email.')
+            else:
+                messages.error(request, 'Invalid Username or Password!')
+    except:
+        messages.error(request, 'An Error Occured!')
+        return redirect('/login')
+
     return render(request, "login.html")
 
 # SignUp view
@@ -141,7 +169,7 @@ def signup(request):
             profile_obj.save()
 
             verification_email(email, auth_token, username)
-            messages.success(request, 'Verification Email Sent! Check your Mail.')
+            messages.success(request, 'Check your E-mail for verification Code!')
             return redirect('/token_send')
             
         
@@ -178,11 +206,17 @@ def verify(request, auth_token):
     try:
         profile_obj = Profile.objects.filter(auth_token = auth_token).first()
         if profile_obj:
+            if profile_obj.is_verified:
+                messages.success(request, 'Your Account is already Verified!')
+                return redirect('/login')
+            
             profile_obj.is_verified = True
             profile_obj.save()
             messages.success(request, 'Hurray! Your Account has been Verified!')
-            return redirect('/')
+            return redirect('/success')
+        
         else:
             return redirect('error')
     except Exception as e:
         print(e)
+        return redirect('/login')
