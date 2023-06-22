@@ -12,7 +12,7 @@ urlpatterns = [
     path("engin-log-reg/", views.Engin_Log_Reg_Tem, name="engin_log_reg"),
     
     ############### User Side ###############
-    path("user-log-reg/", views.User_Log_Reg_Tem, name="engin_log_reg"),
+    path("user-log-reg/", views.User_Log_Reg_Tem, name="user_log_reg"),
 
     path("login/", views.login, name="login"),
     

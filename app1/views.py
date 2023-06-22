@@ -61,51 +61,6 @@ def Engin_Log_Reg_Tem(request):
 ############### User Side ##################
 
 def User_Log_Reg_Tem(request):
-    if request.method == 'POST':
-
-        email = request.POST.get('email')
-        username = request.POST.get('username')
-        password1 = request.POST.get('password1')
-        password2 = request.POST.get('password2')
-
-        try:
-            if User.objects.filter(username=username).exists():
-                messages.add_message(request, messages.ERROR, 'Username is already taken')
-                return redirect('register')
-
-            if not username:
-                messages.add_message(request, messages.ERROR, 'Username is required!')
-                return redirect('register')
-
-            if not email:
-                messages.add_message(request, messages.ERROR, 'Email is required!')
-                return redirect('register')
-            
-            if User.objects.filter(email=email).exists():
-                messages.add_message(request, messages.ERROR, 'Email already exists, user another one.')
-                return redirect('register')
-
-            if len(password1) < 8:
-                messages.add_message(request, messages.ERROR, 'Password should be atleast 8 characters, should be alpha numeric')
-                return redirect('register')
-        
-            if password1 != password2:
-                messages.add_message(request, messages.ERROR, 'Password does not match')
-                return redirect('register')
-            
-            user_obj = User.objects.create_user(username=username, email=email, password=password1)
-            auth_token = str(uuid.uuid4())
-            user_obj.save()
-            # profile_obj = UserMaster.objects.create(user = user_obj, auth_token = auth_token)
-            # profile_obj.save()
-
-            verification_email(email, auth_token, username)
-            messages.success(request, 'Verification Email Sent! Check your Mail.')
-            return redirect('token_send')
-
-        except:
-            return render('error')
-
     return render(request, "user/user_log_reg.html")
 
 
