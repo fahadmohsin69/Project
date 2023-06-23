@@ -30,7 +30,7 @@ class ContactMessage(models.Model):
 #     is_update = models.DateTimeField(auto_now_add = True)
 
 # class Engineer(models.Model):
-#     user_id = models.ForeignKey(UserMaster, on_delete = models.CASCADE)
+#     user_id = models.ForeignKey(User, on_delete = models.CASCADE)
 #     firstname = models.CharField(max_length = 50)
 #     lastname = models.CharField(max_length = 50)
 #     contact = models.CharField(max_length = 50)
@@ -56,7 +56,6 @@ class ContactMessage(models.Model):
 #     dob = models.CharField(max_length = 50)
 #     gender = models.CharField(max_length = 50)
 #     profile_pic = models.ImageField(upload_to = "app1/img/User")    
-
 
 #For Email Verification
 class Profile(models.Model):

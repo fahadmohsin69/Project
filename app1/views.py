@@ -234,19 +234,19 @@ def user_reset_password(request):
 
 # Success Template view
 def user_success(request):
-    return render(request, "login_templates/success.html")
+    return render(request, "user/user_success.html")
 
 # token_send Template view
 def user_token_send(request):
-    return render(request, "login_templates/token_send.html")
+    return render(request, "user/user_token_send.html")
 
 # Update Password
 def user_update(request):
-    return render(request, "login_templates/update.html")
+    return render(request, "user/user_update.html")
 
 # Error Page
 def user_error(request):
-    return render(request, "login_templates/error.html")
+    return render(request, "user/user_error.html")
 
 
 def User_Log_Reg_Tem(request):
