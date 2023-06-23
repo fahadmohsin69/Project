@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from .models import ContactMessage
 from django.contrib import messages
-from django.contrib.auth import authenticate, login as auth_login, logout
+from django.contrib.auth import authenticate, login as auth_login, logout, decorators
 
 from .models import Profile
 from .forms import *
@@ -20,7 +20,10 @@ def IndexPage(request):
     return render(request,'main/index.html')
 
 def home_page(request):
-    return render(request,'main_pages/home.html')
+    if request.user.is_authenticated:
+        return render(request,'main_pages/home.html')
+    else:
+        return render(request,'main/index.html')
 
 def contact_us(request):
     if request.method == 'POST':
