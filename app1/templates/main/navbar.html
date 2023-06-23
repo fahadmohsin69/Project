@@ -14,7 +14,13 @@
           <a class="nav-link active" aria-current="page" href="#portfolio">Portfolio</a>
           <a class="nav-link active" aria-current="page" href="#testmonials">Testmonials</a>
           <a class="nav-link active" aria-current="page" href="#contact">Contact</a>
-          <a class="nav-link active btn-old" aria-current="page" href="{% url 'engin_log_reg' %}">Login</a>
+          <div class="dropdown">
+            <a class="nav-link active btn-old dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Login</a>
+            <ul class="dropdown-menu">
+              <li><a class="nav-link active dropdown-item" style="text-align: center;" href="{% url 'user_login' %}">as User</a></li>
+              <li><a class="nav-link active dropdown-item" style="text-align: center;" href="{% url 'engineer_login' %}">as Engineer</a></li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>

@@ -1,15 +1,15 @@
-{% extends 'login_templates/base.html' %}
+{% extends 'user/user_base.html' %}
 
-{% block title %}Success{% endblock  %}
+{% block title %}Verification{% endblock  %}
 
 {% block content %}
 
 <div class="global-container">
 	<div class="card login-form">
-	
-		<div class="card-body">
-		<h4 class="card-title text-center">Email Successfully Verified!</h4>
+	<div class="card-body">
+		<h3 class="card-title text-center">Verification Code Sent!</h3>
 		<div class="card-text">
+
 			{% if messages %}
 				{% for message in messages %}
 				<div class="alert alert-info">
@@ -17,9 +17,11 @@
 				</div>
 				{% endfor %}
 			{% endif %}
-			<form>				
+
+			<form>
+				
 				<div class="sign-up">
-					 <a href="{% url 'login' %}" style="text-decoration: underline;">Login now!</a>
+					Didn't get your code? <a href="#">Send Again!</a>
 				</div>
 			</form>
 		</div>

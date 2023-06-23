@@ -1,0 +1,33 @@
+{% extends 'engineer/engineer_base.html' %}
+
+{% block title %}Verification{% endblock  %}
+
+{% block content %}
+
+<div class="global-container">
+	<div class="card login-form">
+	<div class="card-body">
+		<h3 class="card-title text-center">Verification Code Sent!</h3>
+		<div class="card-text">
+
+			{% if messages %}
+				{% for message in messages %}
+				<div class="alert alert-info">
+					{{message}}
+				</div>
+				{% endfor %}
+			{% endif %}
+
+			<form>
+				
+				<div class="sign-up">
+					Didn't get your code? <a href="#">Send Again!</a>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+</div>
+
+
+{% endblock %}

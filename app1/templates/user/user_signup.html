@@ -1,4 +1,4 @@
-{% extends 'login_templates/base.html' %}
+{% extends 'user/user_base.html' %}
 
 {% block title %}Sign up{% endblock  %}
 
@@ -46,7 +46,7 @@
                 <button type="submit" class="btn btn-primary btn-block">Sign up!</button>
 				
 				<div class="sign-up">
-					Already have an account? <a href="{% url 'login' %}">Login now!</a>
+					Already have an account? <a href="{% url 'user_login' %}">Login now!</a>
 				</div>
 			</form>
 		</div>

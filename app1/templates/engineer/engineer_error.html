@@ -1,0 +1,28 @@
+{% extends 'engineer/engineer_base.html' %}
+
+{% block title %}Error{% endblock  %}
+
+{% block content %}
+
+<div class="global-container">
+	<div class="card login-form">
+	<div class="card-body">
+        
+        {% if messages %}
+            {% for message in messages %}
+            <div class="alert alert-info">
+                {{message}}
+            </div>
+            {% endfor %}
+        {% endif %}
+
+		<h3 class="card-title text-center">Error 404!</h3>
+		<div class="card-text">
+            <a href="/engineer_login" class="btn btn-primary btn-block" style="position: relative;">Go Back to Login Page.</a>
+            <!-- <button  class="btn btn-primary btn-block">Sign in</button> -->
+		</div>
+	</div>
+</div>
+</div>
+
+{% endblock %}

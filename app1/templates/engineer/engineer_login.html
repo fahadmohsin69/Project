@@ -1,4 +1,4 @@
-{% extends 'login_templates/base.html' %}
+{% extends 'engineer/engineer_base.html' %}
 
 {% block title %}Login Page{% endblock  %}
 
@@ -29,12 +29,12 @@
 					<label for="exampleInputPassword1">Password</label>
 					<input type="password" name="password1" class="form-control form-control-sm" id="exampleInputPassword1">
 				</div>
-				<a href="{% url 'forgot_password' %}" style="float:right;font-size:12px;">Forgot password?</a>
+				<a href="{% url 'engineer_forgot_password' %}" style="float:right;font-size:12px;">Forgot password?</a>
 				<br>
 				<button type="submit" class="btn btn-primary btn-block">Sign in</button>
 				
 				<div class="sign-up">
-					Don't have an account? <a href="{% url 'signup' %}">Create One</a>
+					Don't have an account? <a href="{% url 'engineer_signup' %}">Create One</a>
 				</div>
 			</form>
 		</div>

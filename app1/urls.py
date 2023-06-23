@@ -7,30 +7,53 @@ urlpatterns = [
     path("home_page/", views.home_page, name="home_page"),
 
     path("contact-us/", views.contact_us, name="contact_us"),
-    
-    ############### Engineer Side ###############
-    path("engin-log-reg/", views.Engin_Log_Reg_Tem, name="engin_log_reg"),
-    
-    ############### User Side ###############
+
+    ############### User Side ###############    
+
     path("user-log-reg/", views.User_Log_Reg_Tem, name="user_log_reg"),
 
-    path("login/", views.login, name="login"),
+    path("user_login/", views.user_login, name="user_login"),
     
-    path("signup/", views.signup, name="signup"),
+    path("user_signup/", views.user_signup, name="user_signup"),
     
-    path("success/", views.success, name="success"),
+    path("user_success/", views.user_success, name="user_success"),
 
-    path("update/", views.update, name="update"),
+    path("user_update/", views.user_update, name="user_update"),
 
-    path("forgot_password/", views.forgot_password, name="forgot_password"),
+    path("user_forgot_password/", views.user_forgot_password, name="user_forgot_password"),
 
-    path("reset_password/", views.reset_password, name="reset_password"),
+    path("user_reset_password/", views.user_reset_password, name="user_reset_password"),
     
-    path("token_send/", views.token_send, name="token_send"),
+    path("user_token_send/", views.user_token_send, name="user_token_send"),
 
-    path('error', views.error, name='error'),
+    path('user_error', views.user_error, name='user_error'),
 
-    path('verify/<auth_token>', views.verify, name='verify'),
+    path('user_verify/<auth_token>', views.user_verify, name='user_verify'),
 
-    path('change_password/<auth_token>', views.change_password, name='change_password'),
+    path('user_change_password/<auth_token>', views.user_change_password, name='user_change_password'),
+
+    
+    ############### Engineer Side ###############
+
+    path("engineer-log-reg/", views.Engineer_Log_Reg_Tem, name="engineer_log_reg"),
+    
+    path("engineer_login/", views.engineer_login, name="engineer_login"),
+    
+    path("engineer_signup/", views.engineer_signup, name="engineer_signup"),
+    
+    path("engineer_success/", views.engineer_success, name="engineer_success"),
+
+    path("engineer_update/", views.engineer_update, name="engineer_update"),
+
+    path("engineer_forgot_password/", views.engineer_forgot_password, name="engineer_forgot_password"),
+
+    path("engineer_reset_password/", views.engineer_reset_password, name="engineer_reset_password"),
+    
+    path("engineer_token_send/", views.engineer_token_send, name="engineer_token_send"),
+
+    path('engineer_error', views.engineer_error, name='engineer_error'),
+
+    path('engineer_verify/<auth_token>', views.engineer_verify, name='engineer_verify'),
+
+    path('engineer_change_password/<auth_token>', views.engineer_change_password, name='engineer_change_password'),
 ]
