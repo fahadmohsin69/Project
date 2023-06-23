@@ -118,7 +118,7 @@ def user_signup(request):
 # Verification for Email
 def user_verification_email(email,token, username):
     subject = 'Your account needs to be verified!'
-    message = f'Hi {username}! , Please use this link to verify your account http://127.0.0.1:8000/verify/{token}'
+    message = f'Hi {username}! , Please use this link to verify your account http://127.0.0.1:8000/user_verify/{token}'
     email_from = settings.EMAIL_HOST_USER
     recipent_list = [email]
     send_mail(subject, message, email_from, recipent_list)
@@ -335,7 +335,7 @@ def engineer_signup(request):
 # Verification for Email
 def engineer_verification_email(email,token, username):
     subject = 'Your account needs to be verified!'
-    message = f'Hi {username}! , Please use this link to verify your account http://127.0.0.1:8000/verify/{token}'
+    message = f'Hi {username}! , Please use this link to verify your account http://127.0.0.1:8000/engineer_verify/{token}'
     email_from = settings.EMAIL_HOST_USER
     recipent_list = [email]
     send_mail(subject, message, email_from, recipent_list)
