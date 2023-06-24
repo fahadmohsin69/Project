@@ -8,3 +8,10 @@ admin.site.register(Profile)
 class ContactMessageAdmin(admin.ModelAdmin):
     list_display = ("first_name", "last_name","email","subject","message","created_at")
 
+
+    
+@admin.register(engineerDetails)
+class engineerDetailsAdmin(admin.ModelAdmin):
+    list_display = ("profile", "firstname","lastname","dob","gender","contact","cnic","degree",
+    "degreeType","university","passOut","pecNo","address","country")
+

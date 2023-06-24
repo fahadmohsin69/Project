@@ -4,8 +4,11 @@ from .models import ContactMessage
 from django.contrib import messages
 from django.contrib.auth import authenticate, login as auth_login, logout, decorators
 
-from .models import Profile
+# from .models import Profile
+from .models import Profile, engineerDetails
 from .forms import *
+
+
 
 
 #Email Authentication 
@@ -68,6 +71,7 @@ def user_login(request):
 
 # SignUp view
 def user_signup(request):
+    
     if request.method == 'POST':
 
         username = request.POST.get('username')
@@ -258,7 +262,84 @@ def User_Log_Reg_Tem(request):
 
 ########### Login and SignUp Views for Engineer ###########
 
+
+def engineer_profile(request):
+    return render(request, "engineer/profile.html")
+
+def engineer_details(request):
+    return render(request, "engineer/engineer_details.html")
+
+def add_engineer_details(request):
+    try:
+        profile = Profile.objects.get(user=request.user)
+    except Profile.DoesNotExist:
+        profile = Profile.objects.create(user=request.user)
+
+    if request.method == 'POST':
+        # Extract form data
+        firstname = request.POST['firstname']
+        lastname = request.POST['lastname']
+        dob = request.POST['dob']
+        gender = request.POST['gender']
+        contact = request.POST['contact']
+        cnic = request.POST['cnic']
+        degree = request.POST['degree']
+        degreeType = request.POST['degreetype']
+        university = request.POST['university']
+        passOut = request.POST['passoutyear']
+        pecNo = request.POST['pecnumber']
+        address = request.POST['address']
+        country = request.POST['country']
+
+        # Create EngineerDetails object
+        engineer_details = engineerDetails(
+            profile = profile,
+            firstname = firstname,
+            lastname = lastname,
+            dob = dob,
+            gender = gender,
+            contact = contact,
+            cnic = cnic,
+            degree = degree,
+            degreeType = degreeType,
+            university = university,
+            passOut = passOut,
+            pecNo = pecNo,
+            address = address,
+            country = country,
+        )
+        engineer_details.save()
+
+        # Redirect to profile page or any other desired page
+        return redirect('engineer_profile')  # Replace 'profile' with your actual URL name
+
+    return render(request, 'engineer_details.html')
+
 # Login view
+# def engineer_login(request):
+#     try:
+#         if request.method == 'POST':
+#             username = request.POST.get('username')
+#             password = request.POST.get('password1')
+#             user = authenticate(request, username=username, password=password)
+
+#             profile_obj = Profile.objects.filter(user = user).first()
+
+#             if user is not None:
+#                 if profile_obj.is_verified:
+#                     Profile.objects.update(reset_password=False)
+#                     auth_login(request,user)
+#                     return redirect('/')
+#                 else:
+#                     messages.error(request, 'You are not Verified! Please check Email.')
+#             else:
+#                 messages.error(request, 'Invalid Username or Password!')
+#     except:
+#         messages.error(request, 'An Error Occured!')
+#         return redirect('/engineer_login')
+
+#     return render(request, "engineer/engineer_login.html")
+
 def engineer_login(request):
     try:
         if request.method == 'POST':
@@ -266,22 +347,25 @@ def engineer_login(request):
             password = request.POST.get('password1')
             user = authenticate(request, username=username, password=password)
 
-            profile_obj = Profile.objects.filter(user = user).first()
+            profile_obj = Profile.objects.filter(user=user).first()
 
             if user is not None:
                 if profile_obj.is_verified:
-                    Profile.objects.update(reset_password=False)
-                    auth_login(request,user)
-                    return redirect('/')
+                    auth_login(request, user)
+                    if engineerDetails.objects.filter(profile=profile_obj).exists():
+                        return redirect('engineer_profile')
+                    else:
+                        return redirect('engineer_details')
                 else:
-                    messages.error(request, 'You are not Verified! Please check Email.')
+                    messages.error(request, 'You are not Verified! Please check your Email.')
             else:
                 messages.error(request, 'Invalid Username or Password!')
     except:
-        messages.error(request, 'An Error Occured!')
+        messages.error(request, 'An Error Occurred!')
         return redirect('/engineer_login')
 
     return render(request, "engineer/engineer_login.html")
+
 
 # SignUp view
 def engineer_signup(request):
