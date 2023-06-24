@@ -21,7 +21,7 @@ class ContactMessage(models.Model):
 
 
 class engineerDetails(models.Model):
-    profile = models.OneToOneField('Profile', on_delete=models.CASCADE)
+    profile = models.OneToOneField('engineerProfile', on_delete=models.CASCADE)
     firstname = models.CharField(max_length=100)
     lastname = models.CharField(max_length=100)
     dob = models.DateField()
@@ -46,7 +46,7 @@ class engineerDetails(models.Model):
     
 
 # For Email Verification
-class Profile(models.Model):
+class engineerProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     auth_token = models.CharField(max_length=100)
     is_verified = models.BooleanField(default=False)
@@ -57,22 +57,22 @@ class Profile(models.Model):
         return self.user.username
 
     class Meta:
-        db_table = 'Profile'
+        db_table = 'engineerProfile'
         ordering = ['created_at']
 
-# class Profile(models.Model):
-#     user = models.OneToOneField(User, on_delete=models.CASCADE)
-#     auth_token = models.CharField(max_length=100)
-#     is_verified = models.BooleanField(default=False)
-#     created_at = models.DateTimeField(auto_now_add=True)
-#     reset_password = models.BooleanField(default=False)
+class userProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    auth_token = models.CharField(max_length=100)
+    is_verified = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+    reset_password = models.BooleanField(default=False)
 
-#     def __str__(self):
-#         return self.user.username
+    def __str__(self):
+        return self.user.username
 
-#     class Meta:
-#         db_table = 'Profile'
-#         ordering = ['created_at']
+    class Meta:
+        db_table = 'userProfile'
+        ordering = ['created_at']
 
 
     
