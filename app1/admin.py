@@ -3,6 +3,7 @@ from .models import *
 
 # Register your models here.
 admin.site.register(engineerProfile)
+admin.site.register(userProfile)
 
 @admin.register(ContactMessage)
 class ContactMessageAdmin(admin.ModelAdmin):
