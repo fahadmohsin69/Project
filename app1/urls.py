@@ -56,4 +56,10 @@ urlpatterns = [
     path('engineer_verify/<auth_token>', views.engineer_verify, name='engineer_verify'),
 
     path('engineer_change_password/<auth_token>', views.engineer_change_password, name='engineer_change_password'),
+
+    path('engineer_details', views.engineer_details, name='engineer_details'),
+
+    path('engineer_profile', views.engineer_profile, name='engineer_profile'),
+
+    path('add_engineer_details', views.add_engineer_details, name='add_engineer_details'),
 ]

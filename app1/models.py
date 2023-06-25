@@ -1,8 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
 
-# Create your models here.
-from django.db import models
+# from .models import Profile
+
 
 class ContactMessage(models.Model):
     first_name = models.CharField(max_length=100)
@@ -11,54 +11,42 @@ class ContactMessage(models.Model):
     subject = models.CharField(max_length=200)
     message = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
-    
+
     class Meta:
-        db_table='ContactMessage'
+        db_table = 'ContactMessage'
         ordering = ['created_at']
-    
+
     def __str__(self):
         return str(self.first_name)
 
-# class UserMaster(models.Model):
-#     email = models.EmailField(max_length = 50)
-#     password = models.CharField(max_length = 50)
-#     otp = models.IntegerField()
-#     role =  models.CharField(max_length = 50)
-#     is_active =  models.BooleanField(default = True)
-#     is_verified = models.BooleanField(default = False)
-#     is_created = models.DateTimeField(auto_now_add = True)
-#     is_update = models.DateTimeField(auto_now_add = True)
 
-# class Engineer(models.Model):
-#     user_id = models.ForeignKey(User, on_delete = models.CASCADE)
-#     firstname = models.CharField(max_length = 50)
-#     lastname = models.CharField(max_length = 50)
-#     contact = models.CharField(max_length = 50)
-#     engineer_no = models.CharField(max_length = 50)
-#     state = models.CharField(max_length = 50)
-#     city = models.CharField(max_length = 50)
-#     address = models.CharField(max_length = 150)
-#     dob = models.CharField(max_length = 50)
-#     gender = models.CharField(max_length = 50)
-#     profile_pic = models.ImageField(upload_to = "app1/img/Engineer")
-#     degree = models.CharField(max_length = 50)
-#     institue = models.CharField(max_length = 100)
-    
-    
-# class User(models.Model):
-#     user_id = models.ForeignKey(UserMaster, on_delete = models.CASCADE)
-#     firstname = models.CharField(max_length = 50)
-#     lastname = models.CharField(max_length = 50)
-#     contact = models.CharField(max_length = 50)
-#     state = models.CharField(max_length = 50)
-#     city = models.CharField(max_length = 50)
-#     address = models.CharField(max_length = 150)
-#     dob = models.CharField(max_length = 50)
-#     gender = models.CharField(max_length = 50)
-#     profile_pic = models.ImageField(upload_to = "app1/img/User")    
+class engineerDetails(models.Model):
+    profile = models.OneToOneField('engineerProfile', on_delete=models.CASCADE)
+    firstname = models.CharField(max_length=100)
+    lastname = models.CharField(max_length=100)
+    dob = models.DateField()
+    gender = models.CharField(max_length=10)
+    contact = models.CharField(max_length=25)
+    cnic = models.CharField(max_length=15)
+    degree = models.CharField(max_length=50)
+    degreeType = models.CharField(max_length=50)
+    university  = models.CharField(max_length=50)
+    passOut = models.DateField()
+    pecNo = models.CharField(max_length=50)
+    address = models.CharField(max_length=100)
+    country = models.CharField(max_length=50)
+    #profile_pic = models.ImageField(upload_to="app1/img/Engineer")
 
-#For Email Verification
-class Profile(models.Model):
+    class Meta:
+        db_table = 'engineerDetails'
+        ordering = ['firstname']
+
+    def __str__(self):
+        return str(self.firstname)
+    
+
+# For Email Verification
+class engineerProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     auth_token = models.CharField(max_length=100)
     is_verified = models.BooleanField(default=False)
@@ -67,4 +55,24 @@ class Profile(models.Model):
 
     def __str__(self):
         return self.user.username
+
+    class Meta:
+        db_table = 'engineerProfile'
+        ordering = ['created_at']
+
+class userProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    auth_token = models.CharField(max_length=100)
+    is_verified = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+    reset_password = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.user.username
+
+    class Meta:
+        db_table = 'userProfile'
+        ordering = ['created_at']
+
+
     

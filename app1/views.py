@@ -4,9 +4,9 @@ from .models import ContactMessage
 from django.contrib import messages
 from django.contrib.auth import authenticate, login as auth_login, logout, decorators
 
-from .models import Profile
+from .models import userProfile
+from .models import engineerProfile, engineerDetails
 from .forms import *
-
 
 #Email Authentication 
 import uuid
@@ -49,7 +49,7 @@ def user_login(request):
             password = request.POST.get('password1')
             user = authenticate(request, username=username, password=password)
 
-            profile_obj = Profile.objects.filter(user = user).first()
+            profile_obj = userProfile.objects.filter(user = user).first()
 
             if user is not None:
                 if profile_obj.is_verified:
@@ -67,7 +67,7 @@ def user_login(request):
     return render(request, "user/user_login.html")
 
 # SignUp view
-def user_signup(request):
+def user_signup(request):   
     if request.method == 'POST':
 
         username = request.POST.get('username')
@@ -105,7 +105,7 @@ def user_signup(request):
 
             auth_token = str(uuid.uuid4())
 
-            profile_obj = Profile.objects.create(user = user_obj, auth_token = auth_token)
+            profile_obj = userProfile.objects.create(user = user_obj, auth_token = auth_token)
             profile_obj.save()
 
             user_verification_email(email, auth_token, username)
@@ -129,7 +129,7 @@ def user_verification_email(email,token, username):
 #Verify Email Token
 def user_verify(request, auth_token):
     try:
-        profile_obj = Profile.objects.filter(auth_token = auth_token).first()
+        profile_obj = userProfile.objects.filter(auth_token = auth_token).first()
         if profile_obj:
             if profile_obj.is_verified:
                 messages.success(request, 'Your Account is already Verified!')
@@ -153,12 +153,12 @@ def user_forgot_password(request):
 
         if User.objects.filter(email=email).first():
 
-            if Profile.objects.filter(is_verified=True):
+            if userProfile.objects.filter(is_verified=True):
 
                 data = User.objects.get(email = email)
                 auth_token = str(uuid.uuid4())
                 
-                Profile.objects.update(auth_token = auth_token)
+                userProfile.objects.update(auth_token = auth_token)
             
                 request.session['email'] = email
                 username = data.username
@@ -188,7 +188,7 @@ def user_password_verify(email,token, username):
 # Reset Password 
 def user_change_password(request, auth_token):
     try:
-        profile_obj = Profile.objects.filter(auth_token = auth_token).first()
+        profile_obj = userProfile.objects.filter(auth_token = auth_token).first()
         if profile_obj:
             profile_obj.reset_password = True
             profile_obj.save()
@@ -207,7 +207,7 @@ def user_reset_password(request):
 
     if request.method == 'POST':
         try:
-            if Profile.objects.filter(reset_password=True):
+            if userProfile.objects.filter(reset_password=True):
 
                 password = request.POST.get('password1')
                 password1 = request.POST.get('password2')
@@ -251,14 +251,89 @@ def user_update(request):
 def user_error(request):
     return render(request, "user/user_error.html")
 
-
 def User_Log_Reg_Tem(request):
     return render(request, "user/user_log_reg.html")
 
 
 ########### Login and SignUp Views for Engineer ###########
 
+def engineer_profile(request):
+    return render(request, "engineer/profile.html")
+
+def engineer_details(request):
+    return render(request, "engineer/engineer_details.html")
+
+def add_engineer_details(request):
+    try:
+        profile = engineerProfile.objects.get(user=request.user)
+    except engineerProfile.DoesNotExist:
+        profile = engineerProfile.objects.create(user=request.user)
+
+    if request.method == 'POST':
+        # Extract form data
+        firstname = request.POST['firstname']
+        lastname = request.POST['lastname']
+        dob = request.POST['dob']
+        gender = request.POST['gender']
+        contact = request.POST['contact']
+        cnic = request.POST['cnic']
+        degree = request.POST['degree']
+        degreeType = request.POST['degreetype']
+        university = request.POST['university']
+        passOut = request.POST['passoutyear']
+        pecNo = request.POST['pecnumber']
+        address = request.POST['address']
+        country = request.POST['country']
+
+        # Create EngineerDetails object
+        engineer_details = engineerDetails(
+            profile = profile,
+            firstname = firstname,
+            lastname = lastname,
+            dob = dob,
+            gender = gender,
+            contact = contact,
+            cnic = cnic,
+            degree = degree,
+            degreeType = degreeType,
+            university = university,
+            passOut = passOut,
+            pecNo = pecNo,
+            address = address,
+            country = country,
+        )
+        engineer_details.save()
+
+        # Redirect to profile page or any other desired page
+        return redirect('engineer_profile')  # Replace 'profile' with your actual URL name
+
+    return render(request, 'engineer_details.html')
+
 # Login view
+# def engineer_login(request):
+#     try:
+#         if request.method == 'POST':
+#             username = request.POST.get('username')
+#             password = request.POST.get('password1')
+#             user = authenticate(request, username=username, password=password)
+
+#             profile_obj = Profile.objects.filter(user = user).first()
+
+#             if user is not None:
+#                 if profile_obj.is_verified:
+#                     Profile.objects.update(reset_password=False)
+#                     auth_login(request,user)
+#                     return redirect('/')
+#                 else:
+#                     messages.error(request, 'You are not Verified! Please check Email.')
+#             else:
+#                 messages.error(request, 'Invalid Username or Password!')
+#     except:
+#         messages.error(request, 'An Error Occured!')
+#         return redirect('/engineer_login')
+
+#     return render(request, "engineer/engineer_login.html")
+
 def engineer_login(request):
     try:
         if request.method == 'POST':
@@ -266,22 +341,25 @@ def engineer_login(request):
             password = request.POST.get('password1')
             user = authenticate(request, username=username, password=password)
 
-            profile_obj = Profile.objects.filter(user = user).first()
+            profile_obj = engineerProfile.objects.filter(user=user).first()
 
             if user is not None:
                 if profile_obj.is_verified:
-                    Profile.objects.update(reset_password=False)
-                    auth_login(request,user)
-                    return redirect('/')
+                    auth_login(request, user)
+                    if engineerDetails.objects.filter(profile=profile_obj).exists():
+                        return redirect('engineer_profile')
+                    else:
+                        return redirect('engineer_details')
                 else:
-                    messages.error(request, 'You are not Verified! Please check Email.')
+                    messages.error(request, 'You are not Verified! Please check your Email.')
             else:
                 messages.error(request, 'Invalid Username or Password!')
     except:
-        messages.error(request, 'An Error Occured!')
+        messages.error(request, 'An Error Occurred!')
         return redirect('/engineer_login')
 
     return render(request, "engineer/engineer_login.html")
+
 
 # SignUp view
 def engineer_signup(request):
@@ -322,7 +400,7 @@ def engineer_signup(request):
 
             auth_token = str(uuid.uuid4())
 
-            profile_obj = Profile.objects.create(user = user_obj, auth_token = auth_token)
+            profile_obj = engineerProfile.objects.create(user = user_obj, auth_token = auth_token)
             profile_obj.save()
 
             engineer_verification_email(email, auth_token, username)
@@ -346,7 +424,7 @@ def engineer_verification_email(email,token, username):
 #Verify Email Token
 def engineer_verify(request, auth_token):
     try:
-        profile_obj = Profile.objects.filter(auth_token = auth_token).first()
+        profile_obj = engineerProfile.objects.filter(auth_token = auth_token).first()
         if profile_obj:
             if profile_obj.is_verified:
                 messages.success(request, 'Your Account is already Verified!')
@@ -370,12 +448,12 @@ def engineer_forgot_password(request):
 
         if User.objects.filter(email=email).first():
 
-            if Profile.objects.filter(is_verified=True):
+            if engineerProfile.objects.filter(is_verified=True):
 
                 data = User.objects.get(email = email)
                 auth_token = str(uuid.uuid4())
                 
-                Profile.objects.update(auth_token = auth_token)
+                engineerProfile.objects.update(auth_token = auth_token)
             
                 request.session['email'] = email
                 username = data.username
@@ -405,7 +483,7 @@ def engineer_password_verify(email,token, username):
 # Reset Password 
 def engineer_change_password(request, auth_token):
     try:
-        profile_obj = Profile.objects.filter(auth_token = auth_token).first()
+        profile_obj = engineerProfile.objects.filter(auth_token = auth_token).first()
         if profile_obj:
             profile_obj.reset_password = True
             profile_obj.save()
@@ -424,7 +502,7 @@ def engineer_reset_password(request):
 
     if request.method == 'POST':
         try:
-            if Profile.objects.filter(reset_password=True):
+            if engineerProfile.objects.filter(reset_password=True):
 
                 password = request.POST.get('password1')
                 password1 = request.POST.get('password2')
