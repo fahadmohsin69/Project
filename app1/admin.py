@@ -2,12 +2,8 @@ from django.contrib import admin
 from .models import *
 
 # Register your models here.
-<<<<<<< HEAD
-admin.site.register(engineerProfile)
-=======
 # admin.site.register(engineerProfile)
 # admin.site.register(userProfile)
->>>>>>> 8f5037b6549c7428b41e06df7b81ea1239001e30
 
 @admin.register(ContactMessage)
 class ContactMessageAdmin(admin.ModelAdmin):

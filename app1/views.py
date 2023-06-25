@@ -53,7 +53,7 @@ def user_login(request):
 
             if user is not None:
                 if profile_obj.is_verified:
-                    Profile.objects.update(reset_password=False)
+                    userProfile.objects.update(reset_password=False)
                     auth_login(request,user)
                     return redirect('/')
                 else:
