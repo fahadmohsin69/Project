@@ -548,3 +548,8 @@ def engineer_error(request):
 
 def Engineer_Log_Reg_Tem(request):
     return render(request, "engineer/engineer_log_reg.html")
+
+############### Main Pages Views ###############  
+
+def home(request):
+    return render(request, 'main_pages/home.html')

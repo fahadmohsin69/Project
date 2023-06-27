@@ -1,91 +1,61 @@
-<!-- <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8" />
-    <title>Example of Twitter Bootstrap 3 Grid System</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-    <style type="text/css">
-     *{padding: 0; margin: 0;}
-     header{ background: blue; margin-top: 15px; height: 150px; line-height: 150px; color: white; font-weight: bold; font-size: 32px; text-align: center;}
-     section{ background: blue; margin-top: 5px; height: 250px; color: white; line-height: 250px; font-size: 32px; text-align: center;}
-     article{ background: blue; margin-top: 5px; height: 250px; line-height: 250px; color: white; font-size: 32px; text-align: center;}
-     aside{ background: blue; margin-top: 5px; height: 250px; line-height: 250px; color: white; font-size: 32px; text-align: center;}
-     footer {background: blue; margin-top: 5px; height: 30px; line-height: 30px; color: white; font-weight: bold; font-size: 32px; text-align: center;}
- 
- </style>
-</head>
-<body>
-    <div class="container">
-        <div class="row grid-demo">
-            <div class="col-md-12">
-                <header>Header (12 Cột)</header>
-            </div>
-            <div class="col-md-3">
-                <section>Left Menu (3 cột)</section>
-            </div>
-            <div class="col-md-6">
-                <article>Content (6 cột)</article>
-            </div>
-            <div class="col-md-3">
-                <aside>Right (3 cột)</aside>
-            </div>
-            <div class="col-md-6">
-                <footer>Footer (6 cột)</footer>
-            </div>
-            <div class="col-md-6">
-                <footer>Footer (6 cột)</footer>
-            </div>
-        </div>
-        <div>
-</body>
-</html> -->
+{% include 'main/main.html' %}
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <title>User Dashboard</title>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-  <style>
-    .column {
-      padding: 10px;
-    }
-    .user-card {
-      padding: 20px;
-      background-color: #f8f8f8;
-    }
-  </style>
-</head>
-<body>
-    
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-md-4 column">
-        <h4>List of Names</h4>
-        <ul class="list-group">
-          <li class="list-group-item">John Doe</li>
-          <li class="list-group-item">Jane Smith</li>
-          <li class="list-group-item">David Johnson</li>
-          <!-- Add more names here -->
-        </ul>
-      </div>
-      <div class="col-md-8 column">
-        <div class="user-card">
-          <h4>User Profile</h4>
-          <p><strong>Name:</strong> John Doe</p>
-          <p><strong>Email:</strong> johndoe@example.com</p>
-          <p><strong>Location:</strong> New York, USA</p>
-          <!-- Add more user information here -->
-        </div>
-      </div>
-    </div>
-  </div>
+{% block content %}
 
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-</body>
-</html>
+    <main class="layout layout--3">
+      <div class="container">
+
+        <!-- Topics Start -->
+
+        {% include 'main_pages/topics_component.html' %}
+        
+        <!-- Topics End -->
+
+        <!-- Room List Start -->
+        <div class="roomList">
+          <div class="mobile-menu">
+            <form action="#"method="GET" class="header__search">
+              <label>
+                <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+                  <title>search</title>
+                  <path
+                    d="M32 30.586l-10.845-10.845c1.771-2.092 2.845-4.791 2.845-7.741 0-6.617-5.383-12-12-12s-12 5.383-12 12c0 6.617 5.383 12 12 12 2.949 0 5.649-1.074 7.741-2.845l10.845 10.845 1.414-1.414zM12 22c-5.514 0-10-4.486-10-10s4.486-10 10-10c5.514 0 10 4.486 10 10s-4.486 10-10 10z"
+                  ></path>
+                </svg>
+                <input placeholder="Search for posts" />
+              </label>
+            </form>
+            <div class="mobile-menuItems">
+              <a class="btn btn--main btn--pill" href="#">Browse</a>
+              <a class="btn btn--main btn--pill" href="#">Recent Activities</a>
+            </div>
+          </div>
+
+          <div class="roomList__header">
+            <div>
+              <!-- <h2>We have many Engineers Available</h2>
+              <p>{{room_count}} Engineers</p> -->
+            </div>
+
+            <a class="btn btn--main" href="#">
+              <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+                <title>add</title>
+                <path
+                  d="M16.943 0.943h-1.885v14.115h-14.115v1.885h14.115v14.115h1.885v-14.115h14.115v-1.885h-14.115v-14.115z"
+                ></path>
+              </svg>
+              Join as Engineer
+            </a>
+          </div>
+          {% include 'main_pages/feed_component.html' %}
+        </div>
+        <!-- Room List End -->
+
+        <!-- Activities Start -->
+        {% include 'main_pages/activity_component.html' %}
+       
+        <!-- Activities End -->
+      </div>
+    </main>
+
+{% endblock %}

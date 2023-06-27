@@ -8,6 +8,10 @@ urlpatterns = [
 
     path("contact-us/", views.contact_us, name="contact_us"),
 
+    ############### Main Pages ###############  
+
+    path("home/", views.home, name="home"),
+
     ############### User Side ###############    
 
     path("user-log-reg/", views.User_Log_Reg_Tem, name="user_log_reg"),
