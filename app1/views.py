@@ -15,12 +15,9 @@ from django.core.mail import send_mail
 
 ############################ Home Views #############################################
 
-from django.shortcuts import render, redirect
 from django.http import HttpResponse, request
-from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
-from django.contrib.auth.models import User
 from .models import Room, Topic, Message
 from .forms import RoomForm, UserForm
 
