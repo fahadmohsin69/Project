@@ -1,0 +1,137 @@
+/*============================== Header Section (NavBar)================================*/
+
+/* Navbar Color and Padding */
+.header {
+    padding: 1.5rem;
+    /* background-color: var(--color-dark); */
+    background-color: lightblue;
+  }
+  
+  /* Navbar Container Items Display Distance */
+  .header > .container {
+    display: flex;
+    gap: 22.5rem;
+  }
+  
+  /* Navbar Logo & User Icon Adjustments */
+  .header__logo,
+  .header__user {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+  }
+  
+  /* Navbar Logo Image Setting */
+  .header__logo > img {
+    height: 4.0rem;
+    width: 4.0rem;
+  }
+  
+  /* Navbar Let Engineers Heading Tag */
+  .header__logo > h1 {
+    font-weight: 700;
+    font-size: 2.5rem;
+    color: black;
+    padding-bottom: 0.3rem;
+  }
+  
+  /* Navbar Search Label Setting */
+  .header__search > label {
+    /* background-color: var(--color-dark-medium); */
+    background-color: white;
+    padding: 1.3rem 1rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    border-radius: 8px;
+  }
+  
+  /* Navbar Search Icon Setting */
+  .header__search svg {
+    /* fill: var(--color-gray); */
+    fill: black;
+    width: 2rem;
+    height: 2rem;
+    margin-left: 0.1rem;
+  }
+  
+  /* Navbar Search Input Setting */
+  .header__search input {
+    width: 40rem;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: var(--color-light);
+  }
+  
+  @media screen and (max-width: 800px) {
+    .header__search input {
+      width: 20rem;
+    }
+  
+    .header > .container {
+      gap: 3rem;
+    }
+  }
+  
+  @media screen and (max-width: 700px) {
+    .header__logo h1 {
+      display: none;
+    }
+  }
+  
+  @media screen and (max-width: 500px) {
+    .header__search {
+      display: none;
+    }
+  }
+  
+  /* User Login Menu Setting */
+  .header__menu {
+    margin-left: auto;
+    position: relative;
+  }
+  
+  /* User Login Header Menu */
+  .header__menu a {
+    display: flex;
+    gap: 1.2rem;
+    align-items: center;
+    font-weight: 500;
+    /* text-transform: uppercase; */
+    text-decoration: none;
+    /* color: var(--color-gray); */
+    color:white;
+  }
+  
+  .header__menu img {
+    height: 3.6rem;
+  }
+  
+  .header__menu p {
+    line-height: 1.2;
+  }
+  
+  .header__menu span {
+    color: var(--color-main);
+    font-weight: 500;
+    font-size: 1.4rem;
+    display: block;
+  }
+  
+  .header__menu svg {
+    width: 1.6rem;
+    height: 1.6rem;
+    fill: var(--color-dark-light);
+  }
+  
+  .dropdown-button {
+    background: transparent;
+    border: 0;
+    outline: 0;
+    cursor: pointer;
+  }
+  
+  .dropdown-button:hover svg {
+    fill: var(--color-main);
+  }

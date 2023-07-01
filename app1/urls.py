@@ -4,8 +4,6 @@ from .import views
 urlpatterns = [
     path("", views.IndexPage, name="index"),
 
-    path("home_page/", views.home_page, name="home_page"),
-
     path("contact-us/", views.contact_us, name="contact_us"),
 
     ############### Main Pages ###############  

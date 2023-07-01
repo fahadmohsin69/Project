@@ -30,12 +30,6 @@ from .forms import RoomForm, UserForm
 def IndexPage(request):
     return render(request,'main/index.html')
 
-def home_page(request):
-    if request.user.is_authenticated:
-        return render(request,'main_pages/home.html')
-    else:
-        return render(request,'main/index.html')
-
 def contact_us(request):
     if request.method == 'POST':
         if request.method == 'POST':
@@ -537,12 +531,8 @@ def Engineer_Log_Reg_Tem(request):
     return render(request, "engineer/engineer_log_reg.html")
 
 
-# def home(request):
-#     return render(request, 'main_pages/home.html')
-
-
 ############### Home Page Views ###############  
-
+@login_required(login_url='index')
 def home(request):
     q = request.GET.get('q') if request.GET.get('q') != None else ''
 
@@ -558,9 +548,9 @@ def home(request):
 
     context = {'rooms': rooms, 'topics': topics,
                'room_count': room_count, 'room_messages': room_messages}
-    return render(request, 'base/home.html', context)
+    return render(request, 'home_pages/home.html', context)
 
-
+@login_required(login_url='index')
 def room(request, pk):
     room = Room.objects.get(id=pk)
     room_messages = room.message_set.all()
@@ -577,9 +567,9 @@ def room(request, pk):
 
     context = {'room': room, 'room_messages': room_messages,
                'participants': participants}
-    return render(request, 'base/room.html', context)
+    return render(request, 'home_pages/room.html', context)
 
-
+@login_required(login_url='index')
 def userProfile(request, pk):
     user = User.objects.get(id=pk)
     rooms = user.room_set.all()
@@ -587,10 +577,10 @@ def userProfile(request, pk):
     topics = Topic.objects.all()
     context = {'user': user, 'rooms': rooms,
                'room_messages': room_messages, 'topics': topics}
-    return render(request, 'base/profile.html', context)
+    return render(request, 'home_pages/profile.html', context)
 
 
-@login_required(login_url='login')
+@login_required(login_url='index')
 def createRoom(request):
     form = RoomForm()
     topics = Topic.objects.all()
@@ -607,10 +597,10 @@ def createRoom(request):
         return redirect('home')
 
     context = {'form': form, 'topics': topics}
-    return render(request, 'base/room_form.html', context)
+    return render(request, 'home_pages/room_form.html', context)
 
 
-@login_required(login_url='login')
+@login_required(login_url='index')
 def updateRoom(request, pk):
     room = Room.objects.get(id=pk)
     form = RoomForm(instance=room)
@@ -628,10 +618,10 @@ def updateRoom(request, pk):
         return redirect('home')
 
     context = {'form': form, 'topics': topics, 'room': room}
-    return render(request, 'base/room_form.html', context)
+    return render(request, 'home_pages/room_form.html', context)
 
 
-@login_required(login_url='login')
+@login_required(login_url='index')
 def deleteRoom(request, pk):
     room = Room.objects.get(id=pk)
 
@@ -641,10 +631,10 @@ def deleteRoom(request, pk):
     if request.method == 'POST':
         room.delete()
         return redirect('home')
-    return render(request, 'base/delete.html', {'obj': room})
+    return render(request, 'home_pages/delete.html', {'obj': room})
 
 
-@login_required(login_url='login')
+@login_required(login_url='index')
 def deleteMessage(request, pk):
     message = Message.objects.get(id=pk)
 
@@ -654,10 +644,10 @@ def deleteMessage(request, pk):
     if request.method == 'POST':
         message.delete()
         return redirect('home')
-    return render(request, 'base/delete.html', {'obj': message})
+    return render(request, 'home_pages/delete.html', {'obj': message})
 
 
-@login_required(login_url='login')
+@login_required(login_url='index')
 def updateUser(request):
     user = request.user
     form = UserForm(instance=user)
@@ -668,10 +658,10 @@ def updateUser(request):
             form.save()
             return redirect('user-profile', pk=user.id)
 
-    return render(request, 'base/update-user.html', {'form': form})
+    return render(request, 'home_pages/update-user.html', {'form': form})
 
-
+@login_required(login_url='index')
 def topicsPage(request):
     q = request.GET.get('q') if request.GET.get('q') != None else ''
     topics = Topic.objects.filter(name__icontains=q)
-    return render(request, 'base/topics.html', {'topics': topics})
+    return render(request, 'home_pages/topics.html', {'topics': topics})
