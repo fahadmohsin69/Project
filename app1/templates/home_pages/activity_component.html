@@ -1,0 +1,8 @@
+<!-- Recent Activity Section -->
+<div class="activities">
+  <div class="activities__header">
+      {% if request.user.is_authenticated %}
+      <h2 style="text-align: center;">Welcome, {{request.user.username}}</h2>
+    </div>
+    {% endif %}
+</div>

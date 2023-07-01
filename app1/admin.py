@@ -1,9 +1,10 @@
 from django.contrib import admin
 from .models import *
+from .models import Room, Topic, Message
 
-# Register your models here.
-# admin.site.register(engineerProfile)
-# admin.site.register(userProfile)
+admin.site.register(Room)
+admin.site.register(Topic)
+admin.site.register(Message)
 
 @admin.register(ContactMessage)
 class ContactMessageAdmin(admin.ModelAdmin):
@@ -21,4 +22,3 @@ class userProfileAdmin(admin.ModelAdmin):
 class engineerDetailsAdmin(admin.ModelAdmin):
     list_display = ("profile", "firstname","lastname","dob","gender","contact","cnic","degree",
     "degreeType","university","passOut","pecNo","address","country")
-

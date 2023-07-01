@@ -11,7 +11,7 @@ urlpatterns = [
     ############### Main Pages ###############  
 
     path("home/", views.home, name="home"),
-
+    
     ############### User Side ###############    
 
     path("user-log-reg/", views.User_Log_Reg_Tem, name="user_log_reg"),
@@ -66,4 +66,22 @@ urlpatterns = [
     path('engineer_profile', views.engineer_profile, name='engineer_profile'),
 
     path('add_engineer_details', views.add_engineer_details, name='add_engineer_details'),
+
+    ######################### Home Page URLS ####################################
+    
+    path('room/<str:pk>/', views.room, name="room"),
+
+    path('profile/<str:pk>/', views.userProfile, name="user-profile"),
+
+    path('create-room/', views.createRoom, name="create-room"),
+
+    path('update-room/<str:pk>/', views.updateRoom, name="update-room"),
+
+    path('delete-room/<str:pk>/', views.deleteRoom, name="delete-room"),
+
+    path('delete-message/<str:pk>/', views.deleteMessage, name="delete-message"),
+
+    path('update-user/', views.updateUser, name="update-user"),
+
+    path('topics/', views.topicsPage, name="topics"),
 ]
