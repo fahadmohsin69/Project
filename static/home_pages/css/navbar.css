@@ -10,7 +10,7 @@
   /* Navbar Container Items Display Distance */
   .header > .container {
     display: flex;
-    gap: 22.5rem;
+    gap: 20.5rem;
   }
   
   /* Navbar Logo & User Icon Adjustments */

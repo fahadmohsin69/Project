@@ -1,10 +1,12 @@
-from django.urls import path, include
+from django.urls import path
 from .import views
 
 urlpatterns = [
     path("", views.IndexPage, name="index"),
 
     path("contact-us/", views.contact_us, name="contact_us"),
+
+    path('logout/', views.logoutUser, name="logout"),
 
     ############### Main Pages ###############  
 

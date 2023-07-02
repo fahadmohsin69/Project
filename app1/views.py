@@ -42,10 +42,17 @@ def contact_us(request):
     else:
         return render(request, 'main/main.html',{'success': False})
 
+def logoutUser(request):
+    logout(request)
+    return redirect('index')
+
 ########### Login and SignUp Views for User ###########
 
 def user_login(request):
     try:
+        if request.user.is_authenticated:
+            return redirect('home')
+         
         if request.method == 'POST':
             username = request.POST.get('username')
             password = request.POST.get('password1')
@@ -57,7 +64,7 @@ def user_login(request):
                 if profile_obj.is_verified:
                     userProfile.objects.update(reset_password=False)
                     auth_login(request,user)
-                    return redirect('/')
+                    return redirect('home')
                 else:
                     messages.error(request, 'You are not Verified! Please check Email.')
             else:
@@ -69,7 +76,10 @@ def user_login(request):
     return render(request, "user/user_login.html")
 
 # SignUp view
-def user_signup(request):   
+def user_signup(request):
+    if request.user.is_authenticated:
+        return redirect('home')
+
     if request.method == 'POST':
 
         username = request.POST.get('username')
@@ -314,6 +324,10 @@ def add_engineer_details(request):
 
 def engineer_login(request):
     try:
+        
+        if request.user.is_authenticated:
+            return redirect('home')
+        
         if request.method == 'POST':
             username = request.POST.get('username')
             password = request.POST.get('password1')
@@ -325,7 +339,7 @@ def engineer_login(request):
                 if profile_obj.is_verified:
                     auth_login(request, user)
                     if engineerDetails.objects.filter(profile=profile_obj).exists():
-                        return redirect('engineer_profile')
+                        return redirect('home')
                     else:
                         return redirect('engineer_details')
                 else:
@@ -338,9 +352,12 @@ def engineer_login(request):
 
     return render(request, "engineer/engineer_login.html")
 
-
 # SignUp view
 def engineer_signup(request):
+
+    if request.user.is_authenticated:
+        return redirect('home')
+    
     if request.method == 'POST':
 
         username = request.POST.get('username')
