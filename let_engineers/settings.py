@@ -127,6 +127,8 @@ USE_TZ = True
 # Define the URL path for serving static files
 STATIC_URL = '/static/'
 
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
 # Define the directories where static files are stored
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
