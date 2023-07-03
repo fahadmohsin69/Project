@@ -161,7 +161,7 @@ section {
     text-decoration: underline !important;
 } */
 
-/* navbar */
+/* Navbar */
 
 /* Navbar Bottom Border */
 .navbar.bg-white {
@@ -169,6 +169,24 @@ section {
     /* color: transparent; */
 }
 
+.header__logo {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.header__logo > h4 {
+    font-weight: 600;
+    font-size: 1.5rem;
+    color: black;
+    padding-top: 0.5rem;
+}
+
+.header__logo > img {
+    height: 3.0rem;
+    width: 3.0rem;
+}
+  
 
 .navbar, .navbar-nav, .nav-link {
     font-weight: 700;
