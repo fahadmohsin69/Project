@@ -133,7 +133,8 @@ def user_signup(request):
 # Verification for Email
 def user_verification_email(email,token, username):
     subject = 'Your account needs to be verified!'
-    message = f'Hi {username}! , Please use this link to verify your account http://127.0.0.1:8000/user_verify/{token}'
+    # message = f'Hi {username}! , Please use this link to verify your account http://127.0.0.1:8000/user_verify/{token}'
+    message = f'Hi {username}! , Please use this link to verify your account http://letengineers.com/user_verify/{token}'
     email_from = settings.EMAIL_HOST_USER
     recipent_list = [email]
     send_mail(subject, message, email_from, recipent_list)
@@ -192,7 +193,8 @@ def user_forgot_password(request):
 # Password Verify
 def user_password_verify(email,token, username):
     subject = 'Request for Password Change!'
-    message = f'Hi {username}! , Please use this link to reset your password: http://127.0.0.1:8000/change_password/{token}'
+    # message = f'Hi {username}! , Please use this link to reset your password: http://127.0.0.1:8000/change_password/{token}'
+    message = f'Hi {username}! , Please use this link to reset your password: http://letengineers.com/change_password/{token}'
     email_from = settings.EMAIL_HOST_USER
     recipent_list = [email]
     send_mail(subject, message, email_from, recipent_list)
@@ -321,7 +323,7 @@ def add_engineer_details(request):
 
     return render(request, 'engineer_details.html')
 
-
+# Login View
 def engineer_login(request):
     try:
         
@@ -411,7 +413,8 @@ def engineer_signup(request):
 # Verification for Email
 def engineer_verification_email(email,token, username):
     subject = 'Your account needs to be verified!'
-    message = f'Hi {username}! , Please use this link to verify your account http://127.0.0.1:8000/engineer_verify/{token}'
+    # message = f'Hi {username}! , Please use this link to verify your account http://127.0.0.1:8000/engineer_verify/{token}'
+    message = f'Hi {username}! , Please use this link to verify your account http://letengineers.com/engineer_verify/{token}'
     email_from = settings.EMAIL_HOST_USER
     recipent_list = [email]
     send_mail(subject, message, email_from, recipent_list)
@@ -470,7 +473,8 @@ def engineer_forgot_password(request):
 # Password Verify
 def engineer_password_verify(email,token, username):
     subject = 'Request for Password Change!'
-    message = f'Hi {username}! , Please use this link to reset your password: http://127.0.0.1:8000/change_password/{token}'
+    # message = f'Hi {username}! , Please use this link to reset your password: http://127.0.0.1:8000/change_password/{token}'
+    message = f'Hi {username}! , Please use this link to reset your password: http://letengineers.com/change_password/{token}'
     email_from = settings.EMAIL_HOST_USER
     recipent_list = [email]
     send_mail(subject, message, email_from, recipent_list)
@@ -543,7 +547,6 @@ def engineer_error(request):
 
 def Engineer_Log_Reg_Tem(request):
     return render(request, "engineer/engineer_log_reg.html")
-
 
 ############### Home Page Views ###############  
 @login_required(login_url='index')
