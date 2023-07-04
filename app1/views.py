@@ -296,8 +296,8 @@ def add_engineer_details(request):
         university = request.POST['university']
         passOut = request.POST['passoutyear']
         pecNo = request.POST['pecnumber']
-        address = request.POST['address']
-        country = request.POST['country']
+        # address = request.POST['address']
+        # country = request.POST['country']
 
         # Create EngineerDetails object
         engineer_details = engineerDetails(
@@ -313,13 +313,13 @@ def add_engineer_details(request):
             university = university,
             passOut = passOut,
             pecNo = pecNo,
-            address = address,
-            country = country,
+            # address = address,
+            # country = country,
         )
         engineer_details.save()
 
         # Redirect to profile page or any other desired page
-        return redirect('engineer_profile')  # Replace 'profile' with your actual URL name
+        return redirect('home')
 
     return render(request, 'engineer_details.html')
 

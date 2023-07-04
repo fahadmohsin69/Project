@@ -9,6 +9,7 @@
     <title>{% block title %}Fill out the Form{% endblock  %}</title>
 
     <link rel="stylesheet" href="{% static 'engineer/css/engineer_log_reg.css' %}">
+    <link rel="shortcut icon" href="{% static 'main/img/favicon.png' %}" type="image/x-icon">
 
   </head>
   <body>
@@ -18,64 +19,63 @@
         <h4 class="text_style">Please enter your details to continue</h4>
 
       <form action="{% url 'add_engineer_details' %}" method="post" required="yes">
-        {% csrf_token %}
+         {% csrf_token %}
            <div class="form-row">
               <div class="input-data">
-                 <input type="text" required>
+                 <input type="text" id="first-name" name="firstname" pattern=".{2,30}" required>
                  <div class="underline"></div>
                  <label for="first-name">First Name</label>
               </div>
 
               <div class="input-data">
-                 <input type="text" required>
+                 <input type="text" id="last-name" name="lastname" required pattern=".{2,30}" required>
                  <div class="underline"></div>
-                 <label for="">Last Name</label>
+                 <label for="last-name">Last Name</label>
               </div>
 
               <div class="input-data">
-                <input type="date" min="1980-01-01" max="2005-12-31" required>
+                <input type="date"  id="date-of-birth" name="dob" min="1980-01-01" max="2005-12-31" required>
                 <div class="underline"></div>
-                <label for="">Date of Birth</label>
+                <label for="date-of-birth">Date of Birth</label>
              </div>
            </div>
 
            <div class="form-row">
             <div class="input-data">
-               <input type="text" required>
+               <input type="text" id="gender" name="gender" required>
                <div class="underline"></div>
-               <label for="">Gender</label>
+               <label for="gender">Gender</label>
             </div>
 
             <div class="input-data">
-               <input type="text" placeholder="0300-0000000" required>
+               <input type="text" id="contact" name="contact" placeholder="0300-0000000" required pattern="[0-9]{11}" required>
                <div class="underline"></div>
-               <label for="">Contact #</label>
+               <label for="contact">Contact #</label>
             </div>
 
             <div class="input-data">
-               <input type="text" placeholder="00000-0000000-0" required>
+               <input type="text" id="cnic" name="cnic" required pattern="[0-9]{5}-[0-9]{7}-[0-9]{1}" placeholder="00000-0000000-0" required>
                <div class="underline"></div>
-               <label for="">CNIC #</label>
+               <label for="cnic">CNIC #</label>
             </div>
          </div>
 
-
          <div class="form-row">
             <div class="input-data">
-                 <input type="text" required>
+                 <input type="text"  id="pec-number" name="pecnumber" required pattern="[A-Z]{2}-[0-9]{4}-[0-9]{6}" placeholder="PK-0000-000000" required>
                  <div class="underline"></div>
-                 <label for="">PEC #</label>
+                 <label for="pec-number">PEC #</label>
             </div>
 
             <div class="input-data">
                <div class="underline"></div>
             
-               <label for="engineering-type" required="">Degree</label>                 
-               <select id="engineering-type" name="degreetype" class="type_engineer" required>
+               <label for="degree" required="">Degree</label>                 
+               <select id="degree" name="degree" class="type_engineer" required>
                    <option value="" >Select Engineering Type</option>
-                   <option value="civil">Bachelors Degree</option>
-                   <option value="mechanical">Masters Degree</option>
-                   <option value="electrical">PHD Degree</option>
+                   <option value="bachelor">Bachelors Degree</option>
+                   <option value="master">Masters Degree</option>
+                   <option value="phd">PHD Degree</option>
                </select>
             </div>
 
@@ -99,8 +99,8 @@
              <div class="input-data">
                <div class="underline"></div>
             
-               <label for="engineering-type" required="">University</label>                 
-               <select id="engineering-type" name="degreetype" class="type_engineer" required>
+               <label for="university">University</label>                 
+               <select id="university" name="university" class="type_engineer" required>
                   <option value="" disabled selected>Select university</option>
                   <option value="au">Aga Khan University</option>
                   <option value="aiou">Allama Iqbal Open University</option>
@@ -172,9 +172,9 @@
             </div>
 
             <div class="input-data">
-               <input type="date" required>
+               <input type="date" id="passout-year" name="passoutyear" required>
                <div class="underline"></div>
-               <label for="">Passout Date</label>
+               <label for="passout-year">Passout Date</label>
             </div>
          </div>
 
