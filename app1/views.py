@@ -29,16 +29,14 @@ def IndexPage(request):
 
 def contact_us(request):
     if request.method == 'POST':
-        if request.method == 'POST':
-            first_name = request.POST.get('first_name', '')
-            print(first_name)
-            last_name = request.POST.get('last_name', '')
-            email = request.POST.get('email', '')
-            subject = request.POST.get('subject', '')
-            message = request.POST.get('message', '')
-            contact_message = ContactMessage(first_name=first_name, last_name=last_name, email=email, subject=subject, message=message)
-            contact_message.save()
-            return render(request, 'main/main.html',{'success': True})
+        first_name = request.POST.get('first_name', '')
+        last_name = request.POST.get('last_name', '')
+        email = request.POST.get('email', '')
+        subject = request.POST.get('subject', '')
+        message = request.POST.get('message', '')
+        contact_message = ContactMessage(first_name=first_name, last_name=last_name, email=email, subject=subject, message=message)
+        contact_message.save()
+        return render(request, 'main/main.html',{'success': True})
     else:
         return render(request, 'main/main.html',{'success': False})
 
@@ -46,7 +44,7 @@ def logoutUser(request):
     logout(request)
     return redirect('index')
 
-########### Login and SignUp Views for User ###########
+######################## Login and SignUp Views for User ##########################
 
 def user_login(request):
     try:
