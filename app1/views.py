@@ -296,9 +296,7 @@ def add_engineer_details(request):
         university = request.POST['university']
         passOut = request.POST['passoutyear']
         pecNo = request.POST['pecnumber']
-        # address = request.POST['address']
-        # country = request.POST['country']
-
+        
         # Create EngineerDetails object
         engineer_details = engineerDetails(
             profile = profile,
@@ -313,8 +311,6 @@ def add_engineer_details(request):
             university = university,
             passOut = passOut,
             pecNo = pecNo,
-            # address = address,
-            # country = country,
         )
         engineer_details.save()
 
