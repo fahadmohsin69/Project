@@ -36,9 +36,11 @@ def contact_us(request):
         message = request.POST.get('message', '')
         contact_message = ContactMessage(first_name=first_name, last_name=last_name, email=email, subject=subject, message=message)
         contact_message.save()
-        return render(request, 'main/main.html',{'success': True})
+        messages.success(request, "Your Response has been submitted.")
+        return render(request, 'main/index.html',{'success': True})
     else:
-        return render(request, 'main/main.html',{'success': False})
+        messages.success(request, "An Error Occured. ")
+        return render(request, 'main/index.html',{'success': False})
 
 def logoutUser(request):
     logout(request)
