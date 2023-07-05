@@ -22,3 +22,7 @@ class userProfileAdmin(admin.ModelAdmin):
 class engineerDetailsAdmin(admin.ModelAdmin):
     list_display = ("profile", "firstname","lastname","dob","gender","contact","cnic","degree",
     "degreeType","university","passOut","pecNo")
+
+@admin.register(userDetails)
+class userDetailsAdmin(admin.ModelAdmin):
+    list_display = ("profile", "firstname","lastname","dob","gender","contact")

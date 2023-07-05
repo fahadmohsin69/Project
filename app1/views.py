@@ -62,9 +62,12 @@ def user_login(request):
 
             if user is not None:
                 if profile_obj.is_verified:
-                    userProfile.objects.update(reset_password=False)
-                    auth_login(request,user)
-                    return redirect('home')
+                    if profile_obj.is_user:
+                        userProfile.objects.update(reset_password=False)
+                        auth_login(request,user)
+                        return redirect('home')
+                    else:
+                        messages.error(request, 'Your are already registered as Engineer. Login as Engineer')  
                 else:
                     messages.error(request, 'You are not Verified! Please check Email.')
             else:
@@ -149,6 +152,7 @@ def user_verify(request, auth_token):
                 return redirect('/user_login')
             
             profile_obj.is_verified = True
+            profile_obj.is_user = True
             profile_obj.save()
             messages.success(request, 'Hurray! Your Account has been Verified!')
             return redirect('/user_success')
@@ -335,11 +339,14 @@ def engineer_login(request):
 
             if user is not None:
                 if profile_obj.is_verified:
-                    auth_login(request, user)
-                    if engineerDetails.objects.filter(profile=profile_obj).exists():
-                        return redirect('home')
+                    if profile_obj.is_engineer:
+                        auth_login(request, user)
+                        if engineerDetails.objects.filter(profile=profile_obj).exists():
+                            return redirect('home')
+                        else:
+                            return redirect('engineer_details')
                     else:
-                        return redirect('engineer_details')
+                        messages.error(request, 'Your are already registered as User. Login as User')    
                 else:
                     messages.error(request, 'You are not Verified! Please check your Email.')
             else:
@@ -425,6 +432,7 @@ def engineer_verify(request, auth_token):
                 return redirect('/engineer_login')
             
             profile_obj.is_verified = True
+            profile_obj.is_engineer = True
             profile_obj.save()
             messages.success(request, 'Hurray! Your Account has been Verified!')
             return redirect('/engineer_success')

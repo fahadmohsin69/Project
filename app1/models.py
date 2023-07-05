@@ -42,6 +42,20 @@ class engineerDetails(models.Model):
     def __str__(self):
         return str(self.firstname)
     
+class userDetails(models.Model):
+    profile = models.OneToOneField('userProfile', on_delete=models.CASCADE)
+    firstname = models.CharField(max_length=100)
+    lastname = models.CharField(max_length=100)
+    dob = models.DateField()
+    gender = models.CharField(max_length=10)
+    contact = models.CharField(max_length=25)
+
+    class Meta:
+        db_table = 'userDetails'
+        ordering = ['firstname']
+
+    def __str__(self):
+        return str(self.firstname)
 
 # For Email Verification
 class engineerProfile(models.Model):
