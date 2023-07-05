@@ -4,8 +4,7 @@ from .models import ContactMessage
 from django.contrib import messages
 from django.contrib.auth import authenticate, login as auth_login, logout, decorators
 
-from .models import userProfile
-from .models import engineerProfile, engineerDetails
+from .models import engineerProfile, engineerDetails, userProfile, userDetails
 from .forms import *
 
 #Email Authentication 
@@ -52,19 +51,29 @@ def user_login(request):
     try:
         if request.user.is_authenticated:
             return redirect('home')
-         
+            
         if request.method == 'POST':
+            print(1)
             username = request.POST.get('username')
+            print(2)
+            print(username)
             password = request.POST.get('password1')
+            print(password)
+            print(3)
             user = authenticate(request, username=username, password=password)
-
-            profile_obj = userProfile.objects.filter(user = user).first()
-
+            print(user)
+            print(4)
+            profile_obj = userProfile.objects.filter(user=user).first()
+            print(5)
             if user is not None:
+                print(6)
                 if profile_obj.is_verified:
+                    print(7)
                     if profile_obj.is_user:
+                        print(8)
                         userProfile.objects.update(reset_password=False)
                         auth_login(request,user)
+                        print(9)
                         return redirect('home')
                     else:
                         messages.error(request, 'Your are already registered as Engineer. Login as Engineer')  
@@ -132,6 +141,32 @@ def user_signup(request):
             print(e)
 
     return render(request, "user/user_signup.html")
+
+# User Details Form
+def add_user_details(request):
+    try:
+        profile = userProfile.objects.get(user=request.user)
+    except userProfile.DoesNotExist:
+        profile = userProfile.objects.create(user=request.user)
+
+    if request.method == 'POST':
+        # Extract form data
+        firstname = request.POST['firstname']
+        lastname = request.POST['lastname']
+        dob = request.POST['dob']
+        gender = request.POST['gender']
+        contact = request.POST['contact']        
+        
+        # Create User_Details object
+        user_details = engineerDetails(
+            profile = profile,
+            firstname = firstname,
+            lastname = lastname,
+            dob = dob,
+            gender = gender,
+            contact = contact,
+        )
+        user_details.save()
 
 # Verification for Email
 def user_verification_email(email,token, username):

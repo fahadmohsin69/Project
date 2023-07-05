@@ -32,6 +32,8 @@ urlpatterns = [
 
     path('user_error', views.user_error, name='user_error'),
 
+    path('user_details', views.user_details, name='user_details'),
+
     path('user_verify/<auth_token>', views.user_verify, name='user_verify'),
 
     path('user_change_password/<auth_token>', views.user_change_password, name='user_change_password'),
