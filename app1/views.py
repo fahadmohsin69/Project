@@ -119,15 +119,15 @@ def user_signup(request):
             if password1 != password2:
                 messages.add_message(request, messages.ERROR, 'Password does not match')
                 return redirect('user_signup')
-            
+            print("idr")
             user_obj = User.objects.create_user(username=username, email=email, password=password1)
             user_obj.set_password(password1)
-
+            print("idr")
             auth_token = str(uuid.uuid4())
 
             profile_obj = userProfile.objects.create(user = user_obj, auth_token = auth_token)
             profile_obj.save()
-
+            print("idr")
             user_verification_email(email, auth_token, username)
             messages.success(request, 'Check your E-mail for verification Code!')
             return redirect('/user_token_send')
@@ -167,8 +167,8 @@ def user_signup(request):
 # Verification for Email
 def user_verification_email(email,token, username):
     subject = 'Your account needs to be verified!'
-    # message = f'Hi {username}! , Please use this link to verify your account http://127.0.0.1:8000/user_verify/{token}'
-    message = f'Hi {username}! , Please use this link to verify your account http://www.letengineers.com/user_verify/{token}'
+    message = f'Hi {username}! , Please use this link to verify your account http://127.0.0.1:8000/user_verify/{token}'
+    #message = f'Hi {username}! , Please use this link to verify your account http://www.letengineers.com/user_verify/{token}'
     email_from = settings.EMAIL_HOST_USER
     recipent_list = [email]
     send_mail(subject, message, email_from, recipent_list)
@@ -228,8 +228,8 @@ def user_forgot_password(request):
 # Password Verify
 def user_password_verify(email,token, username):
     subject = 'Request for Password Change!'
-    # message = f'Hi {username}! , Please use this link to reset your password: http://127.0.0.1:8000/change_password/{token}'
-    message = f'Hi {username}! , Please use this link to reset your password: http://www.letengineers.com/change_password/{token}'
+    message = f'Hi {username}! , Please use this link to reset your password: http://127.0.0.1:8000/change_password/{token}'
+    # message = f'Hi {username}! , Please use this link to reset your password: http://www.letengineers.com/change_password/{token}'
     email_from = settings.EMAIL_HOST_USER
     recipent_list = [email]
     send_mail(subject, message, email_from, recipent_list)
@@ -447,8 +447,8 @@ def engineer_signup(request):
 # Verification for Email
 def engineer_verification_email(email,token, username):
     subject = 'Your account needs to be verified!'
-    # message = f'Hi {username}! , Please use this link to verify your account http://127.0.0.1:8000/engineer_verify/{token}'
-    message = f'Hi {username}! , Please use this link to verify your account http://www.letengineers.com/engineer_verify/{token}'
+    message = f'Hi {username}! , Please use this link to verify your account http://127.0.0.1:8000/engineer_verify/{token}'
+    # message = f'Hi {username}! , Please use this link to verify your account http://www.letengineers.com/engineer_verify/{token}'
     email_from = settings.EMAIL_HOST_USER
     recipent_list = [email]
     send_mail(subject, message, email_from, recipent_list)
@@ -508,8 +508,8 @@ def engineer_forgot_password(request):
 # Password Verify
 def engineer_password_verify(email,token, username):
     subject = 'Request for Password Change!'
-    # message = f'Hi {username}! , Please use this link to reset your password: http://127.0.0.1:8000/change_password/{token}'
-    message = f'Hi {username}! , Please use this link to reset your password: http://www.letengineers.com/change_password/{token}'
+    message = f'Hi {username}! , Please use this link to reset your password: http://127.0.0.1:8000/change_password/{token}'
+    # message = f'Hi {username}! , Please use this link to reset your password: http://www.letengineers.com/change_password/{token}'
     email_from = settings.EMAIL_HOST_USER
     recipent_list = [email]
     send_mail(subject, message, email_from, recipent_list)
@@ -623,7 +623,7 @@ def room(request, pk):
     return render(request, 'home_pages/room.html', context)
 
 @login_required(login_url='index')
-def userProfile(request, pk):
+def user_Profile(request, pk):
     user = User.objects.get(id=pk)
     rooms = user.room_set.all()
     room_messages = user.message_set.all
