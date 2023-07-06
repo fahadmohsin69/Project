@@ -11,7 +11,16 @@
       </div>
 
       <div class="row">
-        <form action="#" class="col-lg-6 mx-auto">
+        {% if messages %}
+          <ul class="messages">
+              {% for message in messages %}
+                  <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+              {% endfor %}
+          </ul>
+        {% endif %}
+
+        <form action= "{% url 'search' %}" method="post" class="col-lg-6 mx-auto">
+          {% csrf_token %}
           <div class="input-group">
             <input type="text" class="form-control" placeholder="Search for..." aria-label="Recipient's username" aria-describedby="button-addon2" id="search-input">
             <button class="btn btn-brand" type="submit" id="button-addon2" >Search</button>

@@ -49,6 +49,14 @@ def contact_us(request):
         messages.success(request, "An Error Occured. ")
         return render(request, 'main/index.html',{'success': False})
 
+
+
+from .decorators import login_required_alert
+
+@login_required_alert
+def search(request):
+    return HttpResponse("hello")
+
 def logoutUser(request):
     logout(request)
     return redirect('index')
