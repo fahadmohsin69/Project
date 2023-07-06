@@ -69,48 +69,48 @@
 <script src="{% static 'main/js/app.js' %}"></script>
 
 <script>
-  var currentMatch = 0;
+//   var currentMatch = 0;
 
-  var removeHighlights = function() {
-  var highlight = document.querySelectorAll(".highlight");
-  for (var i = 0; i < highlight.length; i++) {
-    highlight[i].parentNode.replaceChild(highlight[i].firstChild, highlight[i]);
-    highlight[i].normalize();
-  }
-};
+//   var removeHighlights = function() {
+//   var highlight = document.querySelectorAll(".highlight");
+//   for (var i = 0; i < highlight.length; i++) {
+//     highlight[i].parentNode.replaceChild(highlight[i].firstChild, highlight[i]);
+//     highlight[i].normalize();
+//   }
+// };
 
-function search() {
-  removeHighlights(); 
-  var searchTerm = document.getElementById("search-input").value;
-  var body = document.getElementsByTagName("body")[0];
-  var regex = new RegExp(searchTerm, "gi");
-  var matches = body.innerHTML.match(regex);
-  if (searchTerm.length > 0) {
-    if (matches !== null) {
-      body.innerHTML = body.innerHTML.replace(regex, function(match) {
-        return '<span class="highlight">' + match + "</span>";
-      });
-      currentMatch = 0;
-      // alert(matches.length + " matches found. Press OK to move to the next match.");
-      var highlights = document.querySelectorAll(".highlight");
-      highlights[currentMatch].classList.add("current"); 
-      highlights[currentMatch].scrollIntoView({ behavior: "smooth", block: "center" }); 
-    } else {
-      alert("No matches found.");
-    }
-  }
-}
+// function search() {
+//   removeHighlights(); 
+//   var searchTerm = document.getElementById("search-input").value;
+//   var body = document.getElementsByTagName("body")[0];
+//   var regex = new RegExp(searchTerm, "gi");
+//   var matches = body.innerHTML.match(regex);
+//   if (searchTerm.length > 0) {
+//     if (matches !== null) {
+//       body.innerHTML = body.innerHTML.replace(regex, function(match) {
+//         return '<span class="highlight">' + match + "</span>";
+//       });
+//       currentMatch = 0;
+//       // alert(matches.length + " matches found. Press OK to move to the next match.");
+//       var highlights = document.querySelectorAll(".highlight");
+//       highlights[currentMatch].classList.add("current"); 
+//       highlights[currentMatch].scrollIntoView({ behavior: "smooth", block: "center" }); 
+//     } else {
+//       alert("No matches found.");
+//     }
+//   }
+// }
 
-function nextMatch() {
-  var highlights = document.querySelectorAll(".highlight");
-  highlights[currentMatch].classList.remove("current"); 
-  currentMatch++;
-  if (currentMatch >= highlights.length) {
-    currentMatch = 0; 
-  }
-  highlights[currentMatch].classList.add("current"); 
-  highlights[currentMatch].scrollIntoView({ behavior: "smooth", block: "center" }); 
-}
+// function nextMatch() {
+//   var highlights = document.querySelectorAll(".highlight");
+//   highlights[currentMatch].classList.remove("current"); 
+//   currentMatch++;
+//   if (currentMatch >= highlights.length) {
+//     currentMatch = 0; 
+//   }
+//   highlights[currentMatch].classList.add("current"); 
+//   highlights[currentMatch].scrollIntoView({ behavior: "smooth", block: "center" }); 
+// }
 
 // Java Script for Spinner
 var myVar;

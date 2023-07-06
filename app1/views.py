@@ -36,6 +36,14 @@ def contact_us(request):
         contact_message = ContactMessage(first_name=first_name, last_name=last_name, email=email, subject=subject, message=message)
         contact_message.save()
         messages.success(request, "Your Response has been submitted.")
+        # Send email
+        send_mail(
+            f'Contact Form Submission: {subject}',
+            f'Name: {first_name}\nEmail: {email}\n\nMessage:\n{message}',
+            email,
+            ['letengineers5@gmail.com'], 
+            fail_silently=False,
+        )
         return render(request, 'main/index.html',{'success': True})
     else:
         messages.success(request, "An Error Occured. ")
