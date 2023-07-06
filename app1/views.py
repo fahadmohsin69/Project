@@ -53,18 +53,14 @@ def user_login(request):
             return redirect('home')
             
         if request.method == 'POST':
-            print(1)
             username = request.POST.get('username')
-            print(2)
             print(username)
             password = request.POST.get('password1')
             print(password)
-            print(3)
             user = authenticate(request, username=username, password=password)
             print(user)
-            print(4)
             profile_obj = userProfile.objects.filter(user=user).first()
-            print(5)
+            print(1)
             if user is not None:
                 print(6)
                 if profile_obj.is_verified:
