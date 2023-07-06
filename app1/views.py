@@ -143,30 +143,30 @@ def user_signup(request):
     return render(request, "user/user_signup.html")
 
 # User Details Form
-def add_user_details(request):
-    try:
-        profile = userProfile.objects.get(user=request.user)
-    except userProfile.DoesNotExist:
-        profile = userProfile.objects.create(user=request.user)
+# def user_details(request):
+#     try:
+#         profile = userProfile.objects.get(user=request.user)
+#     except userProfile.DoesNotExist:
+#         profile = userProfile.objects.create(user=request.user)
 
-    if request.method == 'POST':
-        # Extract form data
-        firstname = request.POST['firstname']
-        lastname = request.POST['lastname']
-        dob = request.POST['dob']
-        gender = request.POST['gender']
-        contact = request.POST['contact']        
+#     if request.method == 'POST':
+#         # Extract form data
+#         firstname = request.POST['firstname']
+#         lastname = request.POST['lastname']
+#         dob = request.POST['dob']
+#         gender = request.POST['gender']
+#         contact = request.POST['contact']        
         
-        # Create User_Details object
-        user_details = engineerDetails(
-            profile = profile,
-            firstname = firstname,
-            lastname = lastname,
-            dob = dob,
-            gender = gender,
-            contact = contact,
-        )
-        user_details.save()
+#         # Create User_Details object
+#         user_details = engineerDetails(
+#             profile = profile,
+#             firstname = firstname,
+#             lastname = lastname,
+#             dob = dob,
+#             gender = gender,
+#             contact = contact,
+#         )
+#         user_details.save()
 
 # Verification for Email
 def user_verification_email(email,token, username):
