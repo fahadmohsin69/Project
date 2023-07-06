@@ -33,8 +33,6 @@ class engineerDetails(models.Model):
     university  = models.CharField(max_length=50)
     passOut = models.DateField()
     pecNo = models.CharField(max_length=50)
-    address = models.CharField(max_length=100)
-    country = models.CharField(max_length=50)
     #profile_pic = models.ImageField(upload_to="app1/img/Engineer")
 
     class Meta:
@@ -44,12 +42,27 @@ class engineerDetails(models.Model):
     def __str__(self):
         return str(self.firstname)
     
+class userDetails(models.Model):
+    profile = models.OneToOneField('userProfile', on_delete=models.CASCADE)
+    firstname = models.CharField(max_length=100)
+    lastname = models.CharField(max_length=100)
+    dob = models.DateField()
+    gender = models.CharField(max_length=10)
+    contact = models.CharField(max_length=25)
+
+    class Meta:
+        db_table = 'userDetails'
+        ordering = ['firstname']
+
+    def __str__(self):
+        return str(self.firstname)
 
 # For Email Verification
 class engineerProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     auth_token = models.CharField(max_length=100)
     is_verified = models.BooleanField(default=False)
+    is_engineer = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     reset_password = models.BooleanField(default=False)
 
@@ -64,6 +77,7 @@ class userProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     auth_token = models.CharField(max_length=100)
     is_verified = models.BooleanField(default=False)
+    is_user = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     reset_password = models.BooleanField(default=False)
 

@@ -15,7 +15,7 @@
   <body>
 
    <div class="container">
-        <div class="text">Welcome Engineer!</div>
+        <div class="text">Welcome User!</div>
         <h4 class="text_style">Please enter your details to continue</h4>
 
       <form action="{% url 'add_engineer_details' %}" method="post" required="yes">
@@ -187,6 +187,7 @@
 
          <div class="form-row">
 
+
             <div class="input-data">
                <div class="underline"></div>
             
@@ -211,27 +212,4 @@
       </form>
    </div>
    </body>
-
-<script>
-
-// Historic Form Dates
-
-var today = new Date();
-var dd = today.getDate();
-var mm = today.getMonth() + 1; //January is 0!
-var yyyy = today.getFullYear();
-
-    if (dd < 10) {
-        dd = '0' + dd;
-    }
-
-    if (mm < 10) {
-        mm = '0' + mm;
-    } 
-    
-today = yyyy + '-' + mm + '-' + dd;
-document.getElementById("passout-year").setAttribute("max", today);
-
-</script>
-
 </html>

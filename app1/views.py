@@ -4,8 +4,7 @@ from .models import ContactMessage
 from django.contrib import messages
 from django.contrib.auth import authenticate, login as auth_login, logout, decorators
 
-from .models import userProfile
-from .models import engineerProfile, engineerDetails
+from .models import engineerProfile, engineerDetails, userProfile, userDetails
 from .forms import *
 
 #Email Authentication 
@@ -29,42 +28,51 @@ def IndexPage(request):
 
 def contact_us(request):
     if request.method == 'POST':
-        if request.method == 'POST':
-            first_name = request.POST.get('first_name', '')
-            print(first_name)
-            last_name = request.POST.get('last_name', '')
-            email = request.POST.get('email', '')
-            subject = request.POST.get('subject', '')
-            message = request.POST.get('message', '')
-            contact_message = ContactMessage(first_name=first_name, last_name=last_name, email=email, subject=subject, message=message)
-            contact_message.save()
-            return render(request, 'main/main.html',{'success': True})
+        first_name = request.POST.get('first_name', '')
+        last_name = request.POST.get('last_name', '')
+        email = request.POST.get('email', '')
+        subject = request.POST.get('subject', '')
+        message = request.POST.get('message', '')
+        contact_message = ContactMessage(first_name=first_name, last_name=last_name, email=email, subject=subject, message=message)
+        contact_message.save()
+        messages.success(request, "Your Response has been submitted.")
+        return render(request, 'main/index.html',{'success': True})
     else:
-        return render(request, 'main/main.html',{'success': False})
+        messages.success(request, "An Error Occured. ")
+        return render(request, 'main/index.html',{'success': False})
 
 def logoutUser(request):
     logout(request)
     return redirect('index')
 
-########### Login and SignUp Views for User ###########
+######################## Login and SignUp Views for User ##########################
 
 def user_login(request):
     try:
         if request.user.is_authenticated:
             return redirect('home')
-         
+            
         if request.method == 'POST':
             username = request.POST.get('username')
+            print(username)
             password = request.POST.get('password1')
+            print(password)
             user = authenticate(request, username=username, password=password)
-
-            profile_obj = userProfile.objects.filter(user = user).first()
-
+            print(user)
+            profile_obj = userProfile.objects.filter(user=user).first()
+            print(1)
             if user is not None:
+                print(6)
                 if profile_obj.is_verified:
-                    userProfile.objects.update(reset_password=False)
-                    auth_login(request,user)
-                    return redirect('home')
+                    print(7)
+                    if profile_obj.is_user:
+                        print(8)
+                        userProfile.objects.update(reset_password=False)
+                        auth_login(request,user)
+                        print(9)
+                        return redirect('home')
+                    else:
+                        messages.error(request, 'Your are already registered as Engineer. Login as Engineer')  
                 else:
                     messages.error(request, 'You are not Verified! Please check Email.')
             else:
@@ -130,11 +138,37 @@ def user_signup(request):
 
     return render(request, "user/user_signup.html")
 
+# User Details Form
+# def user_details(request):
+#     try:
+#         profile = userProfile.objects.get(user=request.user)
+#     except userProfile.DoesNotExist:
+#         profile = userProfile.objects.create(user=request.user)
+
+#     if request.method == 'POST':
+#         # Extract form data
+#         firstname = request.POST['firstname']
+#         lastname = request.POST['lastname']
+#         dob = request.POST['dob']
+#         gender = request.POST['gender']
+#         contact = request.POST['contact']        
+        
+#         # Create User_Details object
+#         user_details = engineerDetails(
+#             profile = profile,
+#             firstname = firstname,
+#             lastname = lastname,
+#             dob = dob,
+#             gender = gender,
+#             contact = contact,
+#         )
+#         user_details.save()
+
 # Verification for Email
 def user_verification_email(email,token, username):
     subject = 'Your account needs to be verified!'
     # message = f'Hi {username}! , Please use this link to verify your account http://127.0.0.1:8000/user_verify/{token}'
-    message = f'Hi {username}! , Please use this link to verify your account http://letengineers.com/user_verify/{token}'
+    message = f'Hi {username}! , Please use this link to verify your account http://www.letengineers.com/user_verify/{token}'
     email_from = settings.EMAIL_HOST_USER
     recipent_list = [email]
     send_mail(subject, message, email_from, recipent_list)
@@ -149,6 +183,7 @@ def user_verify(request, auth_token):
                 return redirect('/user_login')
             
             profile_obj.is_verified = True
+            profile_obj.is_user = True
             profile_obj.save()
             messages.success(request, 'Hurray! Your Account has been Verified!')
             return redirect('/user_success')
@@ -194,7 +229,7 @@ def user_forgot_password(request):
 def user_password_verify(email,token, username):
     subject = 'Request for Password Change!'
     # message = f'Hi {username}! , Please use this link to reset your password: http://127.0.0.1:8000/change_password/{token}'
-    message = f'Hi {username}! , Please use this link to reset your password: http://letengineers.com/change_password/{token}'
+    message = f'Hi {username}! , Please use this link to reset your password: http://www.letengineers.com/change_password/{token}'
     email_from = settings.EMAIL_HOST_USER
     recipent_list = [email]
     send_mail(subject, message, email_from, recipent_list)
@@ -296,9 +331,7 @@ def add_engineer_details(request):
         university = request.POST['university']
         passOut = request.POST['passoutyear']
         pecNo = request.POST['pecnumber']
-        # address = request.POST['address']
-        # country = request.POST['country']
-
+        
         # Create EngineerDetails object
         engineer_details = engineerDetails(
             profile = profile,
@@ -313,8 +346,6 @@ def add_engineer_details(request):
             university = university,
             passOut = passOut,
             pecNo = pecNo,
-            # address = address,
-            # country = country,
         )
         engineer_details.save()
 
@@ -339,11 +370,14 @@ def engineer_login(request):
 
             if user is not None:
                 if profile_obj.is_verified:
-                    auth_login(request, user)
-                    if engineerDetails.objects.filter(profile=profile_obj).exists():
-                        return redirect('home')
+                    if profile_obj.is_engineer:
+                        auth_login(request, user)
+                        if engineerDetails.objects.filter(profile=profile_obj).exists():
+                            return redirect('home')
+                        else:
+                            return redirect('engineer_details')
                     else:
-                        return redirect('engineer_details')
+                        messages.error(request, 'Your are already registered as User. Login as User')    
                 else:
                     messages.error(request, 'You are not Verified! Please check your Email.')
             else:
@@ -414,7 +448,7 @@ def engineer_signup(request):
 def engineer_verification_email(email,token, username):
     subject = 'Your account needs to be verified!'
     # message = f'Hi {username}! , Please use this link to verify your account http://127.0.0.1:8000/engineer_verify/{token}'
-    message = f'Hi {username}! , Please use this link to verify your account http://letengineers.com/engineer_verify/{token}'
+    message = f'Hi {username}! , Please use this link to verify your account http://www.letengineers.com/engineer_verify/{token}'
     email_from = settings.EMAIL_HOST_USER
     recipent_list = [email]
     send_mail(subject, message, email_from, recipent_list)
@@ -429,6 +463,7 @@ def engineer_verify(request, auth_token):
                 return redirect('/engineer_login')
             
             profile_obj.is_verified = True
+            profile_obj.is_engineer = True
             profile_obj.save()
             messages.success(request, 'Hurray! Your Account has been Verified!')
             return redirect('/engineer_success')
@@ -474,7 +509,7 @@ def engineer_forgot_password(request):
 def engineer_password_verify(email,token, username):
     subject = 'Request for Password Change!'
     # message = f'Hi {username}! , Please use this link to reset your password: http://127.0.0.1:8000/change_password/{token}'
-    message = f'Hi {username}! , Please use this link to reset your password: http://letengineers.com/change_password/{token}'
+    message = f'Hi {username}! , Please use this link to reset your password: http://www.letengineers.com/change_password/{token}'
     email_from = settings.EMAIL_HOST_USER
     recipent_list = [email]
     send_mail(subject, message, email_from, recipent_list)

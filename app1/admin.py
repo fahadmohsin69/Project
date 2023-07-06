@@ -12,13 +12,17 @@ class ContactMessageAdmin(admin.ModelAdmin):
 
 @admin.register(engineerProfile)
 class engineerProfileAdmin(admin.ModelAdmin):
-    list_display = ("user", "auth_token","is_verified","created_at","reset_password")
+    list_display = ("user", "auth_token","is_verified","created_at","reset_password", "is_engineer")
 
 @admin.register(userProfile)
 class userProfileAdmin(admin.ModelAdmin):
-    list_display = ("user", "auth_token","is_verified","created_at","reset_password")    
+    list_display = ("user", "auth_token","is_verified","created_at","reset_password", "is_user")    
 
 @admin.register(engineerDetails)
 class engineerDetailsAdmin(admin.ModelAdmin):
     list_display = ("profile", "firstname","lastname","dob","gender","contact","cnic","degree",
-    "degreeType","university","passOut","pecNo","address","country")
+    "degreeType","university","passOut","pecNo")
+
+@admin.register(userDetails)
+class userDetailsAdmin(admin.ModelAdmin):
+    list_display = ("profile", "firstname","lastname","dob","gender","contact")
