@@ -164,8 +164,7 @@ def user_signup(request):
 #             lastname = lastname,
 #             dob = dob,
 #             gender = gender,
-#             contact = contact,
-#         )
+#             contact = contact)
 #         user_details.save()
 
 # Verification for Email
