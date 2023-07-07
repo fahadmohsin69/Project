@@ -197,7 +197,7 @@ section {
 /* services */
 
 .service {
-    padding-top: 24px ;
+    padding-top: 44px;
     text-align: center;
 }
 
@@ -240,7 +240,7 @@ section {
 
 }
 
-  .card .img-wrapper {
+.card .img-wrapper {
       max-width: 100%;
       height: 13em;
       display: flex;
@@ -248,7 +248,7 @@ section {
       align-items: center;
   }
 
-  .card img {
+.card img {
       max-height: 100%;
   }
 
@@ -315,6 +315,7 @@ section {
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
+    text-align: center;
 }
 
 #testmonials .section-intro h1,
