@@ -1,6 +1,3 @@
-
-
-
 var multipleCardCarousel = document.querySelector(
   "#c-control"
 );
