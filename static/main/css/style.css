@@ -321,6 +321,7 @@ section {
 #testmonials .section-intro h1,
 #testmonials .section-intro p {
     color: white;
+    padding-bottom: 20px;
 }
 
 .review {
