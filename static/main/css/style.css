@@ -59,6 +59,7 @@ section {
 .section-intro p {
     max-width: 600px;
     margin: auto;
+    margin-bottom: 50px;
 }
 
 .custom-card {
