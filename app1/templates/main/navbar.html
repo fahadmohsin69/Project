@@ -13,10 +13,10 @@
         <div class="navbar-nav ms-auto ">
           <a class="nav-link active" aria-current="page" href="#home">Home</a>
           <a class="nav-link active" aria-current="page" href="#service">Services</a>
-          <a class="nav-link active" aria-current="page" href="#testmonials">Our Aim</a>
+          <a class="nav-link active" aria-current="page" href="#testmonials">Aims</a>
           <a class="nav-link active" aria-current="page" href="#contact">Contact</a>
           {% if user.is_authenticated %}
-          <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Go to Posts</a>
+          <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Posts</a>
           <div class="dropdown">
             <a class="nav-link active btn-old dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"></a>
             <ul class="dropdown-menu">

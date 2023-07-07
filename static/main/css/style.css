@@ -422,6 +422,12 @@ section {
 
 /* Footer */
 
+.logo-footer {
+    font-size: 30px;
+    font-weight: 900;
+}
+
+
 footer p,
 footer ul li a {
     color:rgba(255, 255, 255, 0.6) ;
