@@ -31,7 +31,7 @@ a {
 }
 
 a:hover {
-    color: red !important;
+    /* color: red !important; */
     transition: all 0.2s ease !important;
     text-decoration: underline !important;
 }
@@ -200,10 +200,6 @@ section {
 .service {
     padding-top: 44px;
     text-align: center;
-}
-
-.service h1 {
-    margin-top: 28px;
 }
 
 .c-inner {
