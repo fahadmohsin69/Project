@@ -68,22 +68,14 @@ def user_login(request):
             
         if request.method == 'POST':
             username = request.POST.get('username')
-            print(username)
             password = request.POST.get('password1')
-            print(password)
             user = authenticate(request, username=username, password=password)
-            print(user)
             profile_obj = userProfile.objects.filter(user=user).first()
-            print(1)
             if user is not None:
-                print(6)
                 if profile_obj.is_verified:
-                    print(7)
                     if profile_obj.is_user:
-                        print(8)
                         userProfile.objects.update(reset_password=False)
                         auth_login(request,user)
-                        print(9)
                         return redirect('home')
                     else:
                         messages.error(request, 'Your are already registered as Engineer. Login as Engineer')  
@@ -145,8 +137,6 @@ def user_signup(request):
             user_verification_email(email, auth_token, username)
             messages.success(request, 'Check your E-mail for verification Code!')
             return redirect('/user_token_send')
-            
-        
         except Exception as e:
             print(e)
 
@@ -181,8 +171,8 @@ def user_signup(request):
 # Verification for Email
 def user_verification_email(email,token, username):
     subject = 'Your account needs to be verified!'
-    message = f'Hi {username}! , Please use this link to verify your account http://127.0.0.1:8000/user_verify/{token}'
-    #message = f'Hi {username}! , Please use this link to verify your account http://www.letengineers.com/user_verify/{token}'
+    # message = f'Hi {username}! , Please use this link to verify your account http://127.0.0.1:8000/user_verify/{token}'
+    message = f'Hi {username}! , Please use this link to verify your account http://www.letengineers.com/user_verify/{token}'
     email_from = settings.EMAIL_HOST_USER
     recipent_list = [email]
     send_mail(subject, message, email_from, recipent_list)
@@ -242,8 +232,8 @@ def user_forgot_password(request):
 # Password Verify
 def user_password_verify(email,token, username):
     subject = 'Request for Password Change!'
-    message = f'Hi {username}! , Please use this link to reset your password: http://127.0.0.1:8000/change_password/{token}'
-    # message = f'Hi {username}! , Please use this link to reset your password: http://www.letengineers.com/change_password/{token}'
+    # message = f'Hi {username}! , Please use this link to reset your password: http://127.0.0.1:8000/change_password/{token}'
+    message = f'Hi {username}! , Please use this link to reset your password: http://www.letengineers.com/change_password/{token}'
     email_from = settings.EMAIL_HOST_USER
     recipent_list = [email]
     send_mail(subject, message, email_from, recipent_list)
@@ -461,8 +451,8 @@ def engineer_signup(request):
 # Verification for Email
 def engineer_verification_email(email,token, username):
     subject = 'Your account needs to be verified!'
-    message = f'Hi {username}! , Please use this link to verify your account http://127.0.0.1:8000/engineer_verify/{token}'
-    # message = f'Hi {username}! , Please use this link to verify your account http://www.letengineers.com/engineer_verify/{token}'
+    # message = f'Hi {username}! , Please use this link to verify your account http://127.0.0.1:8000/engineer_verify/{token}'
+    message = f'Hi {username}! , Please use this link to verify your account http://www.letengineers.com/engineer_verify/{token}'
     email_from = settings.EMAIL_HOST_USER
     recipent_list = [email]
     send_mail(subject, message, email_from, recipent_list)
@@ -522,8 +512,8 @@ def engineer_forgot_password(request):
 # Password Verify
 def engineer_password_verify(email,token, username):
     subject = 'Request for Password Change!'
-    message = f'Hi {username}! , Please use this link to reset your password: http://127.0.0.1:8000/change_password/{token}'
-    # message = f'Hi {username}! , Please use this link to reset your password: http://www.letengineers.com/change_password/{token}'
+    # message = f'Hi {username}! , Please use this link to reset your password: http://127.0.0.1:8000/change_password/{token}'
+    message = f'Hi {username}! , Please use this link to reset your password: http://www.letengineers.com/change_password/{token}'
     email_from = settings.EMAIL_HOST_USER
     recipent_list = [email]
     send_mail(subject, message, email_from, recipent_list)
