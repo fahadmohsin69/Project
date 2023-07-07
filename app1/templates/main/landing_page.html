@@ -10,14 +10,14 @@
         </div>
       </div>
 
-      <div class="row">
+      <!-- <div class="row">
         {% if messages %}
           <ul class="messages">
               {% for message in messages %}
                   <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
               {% endfor %}
           </ul>
-        {% endif %}
+        {% endif %} -->
 
         <form action= "{% url 'search' %}" method="post" class="col-lg-6 mx-auto">
           {% csrf_token %}
@@ -167,7 +167,7 @@
   <div id="cta">
     <div class="row">
       <div class="col-lg-8">
-        <h2>Where people can easily collaborate with professinoals</h2>
+        <h2>Where people can easily collaborate with professionals</h2>
         <p>Empowering innovation through comprehensive engineering resources and expert guidance.</p>
       </div>
       <!-- <div class="col-auto">
