@@ -107,7 +107,6 @@ section {
     margin-top: 0px;
     margin-bottom: 28px;
     text-align: center;
-    /* text-decoration: underline; */
 }
 
 #search-bar .input-group {
@@ -173,6 +172,7 @@ section {
   display: flex;
   gap: 1rem;
   align-items: center;
+  background-color: transparent;
 }
 
 .header__logo > h4 {
