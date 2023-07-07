@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from .models import ContactMessage
 from django.contrib import messages
 from django.contrib.auth import authenticate, login as auth_login, logout, decorators
-
+from .decorators import login_required_alert
 from .models import engineerProfile, engineerDetails, userProfile, userDetails
 from .forms import *
 
@@ -36,6 +36,7 @@ def contact_us(request):
         contact_message = ContactMessage(first_name=first_name, last_name=last_name, email=email, subject=subject, message=message)
         contact_message.save()
         messages.success(request, "Your Response has been submitted.")
+        
         # Send email
         send_mail(
             f'Contact Form Submission: {subject}',
@@ -49,9 +50,6 @@ def contact_us(request):
         messages.success(request, "An Error Occured. ")
         return render(request, 'main/index.html',{'success': False})
 
-
-
-from .decorators import login_required_alert
 
 @login_required_alert
 def search(request):

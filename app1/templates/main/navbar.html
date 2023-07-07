@@ -13,9 +13,17 @@
         <div class="navbar-nav ms-auto ">
           <a class="nav-link active" aria-current="page" href="#home">Home</a>
           <a class="nav-link active" aria-current="page" href="#service">Services</a>
-          <a class="nav-link active" aria-current="page" href="#portfolio">Portfolio</a>
           <a class="nav-link active" aria-current="page" href="#testmonials">Testmonials</a>
           <a class="nav-link active" aria-current="page" href="#contact">Contact</a>
+          {% if user.is_authenticated %}
+          <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Go to Posts</a>
+          <div class="dropdown">
+            <a class="nav-link active btn-old dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"></a>
+            <ul class="dropdown-menu">
+              <li><a class="nav-link active dropdown-item" style="text-align: center;" href="{% url 'logout' %}">Logout</a></li>
+            </ul>
+          </div>
+          {% else %}
           <div class="dropdown">
             <a class="nav-link active btn-old dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Login</a>
             <ul class="dropdown-menu">
@@ -23,6 +31,7 @@
               <li><a class="nav-link active dropdown-item" style="text-align: center;" href="{% url 'engineer_login' %}">as Engineer</a></li>
             </ul>
           </div>
+          {% endif %}
         </div>
       </div>
     </div>
