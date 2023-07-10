@@ -53,7 +53,10 @@ section {
 
 .section-intro {
     margin-bottom: 5px;
-    /* text-align: center; */
+}
+
+.section-intro > h1 {
+    text-align: center;
 }
 
 .section-intro p {
@@ -167,7 +170,7 @@ section {
 .header__logo {
   display: flex;
   gap: 1rem;
-  align-items: center;
+  /* align-items: center; */
 }
 
 .header__logo > h4 {
@@ -199,6 +202,9 @@ section {
 
 .service {
     padding-top: 44px;
+}
+
+.service > h1, p {
     text-align: center;
 }
 
@@ -270,6 +276,8 @@ section {
 #cta h2, #cta p {
     color: white;
     padding-left: 20px;
+    text-align: left;
+    
 }
 
 /* portfolio */
@@ -312,7 +320,7 @@ section {
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
-    /* text-align: center; */
+    text-align: center;
 }
 
 #testmonials .section-intro h1,
@@ -373,7 +381,7 @@ section {
     background-attachment: fixed;
     padding-top: 70px;
     padding-bottom: 70px;
-    /* text-align: center; */
+    text-align: center;
 }
 
 .counter .divider {
@@ -401,6 +409,10 @@ section {
     height: 69px;
 }
 
+#contact > h1, p {
+    text-align: center;
+}
+
 #contact .form-control {
     background-color: white;
     border: white;
@@ -424,10 +436,14 @@ section {
     font-weight: 900;
 }
 
+.logo-footer p {
+    text-align: left;
+    color: darkblue !important;
+}
 
 footer p,
 footer ul li a {
-    color:rgba(255, 255, 255, 0.6) ;
+    color:rgba(255, 255, 255, 0.6);
 }
 
 footer h6 {

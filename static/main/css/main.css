@@ -1,6 +1,6 @@
 /************** Loader for Screen *****************/
 
-/* Center the loader */
+/* loader */
 
 #loader {
     position: fixed;
@@ -57,4 +57,5 @@
   
 .newDiv {
     visibility: hidden;
+    background-color: white;
 }
