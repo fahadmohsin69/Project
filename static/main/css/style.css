@@ -27,13 +27,12 @@ h1, h2, h3, h4, h5 {
 a {
     color: var(--brand);
     text-decoration: none;
-    /* transition: all 0.4s linear; */
 }
 
 a:hover {
     color: red !important;
     transition: all 0.2s ease !important;
-    text-decoration: underline !important;
+    text-decoration: underline!important;
 }
 
 a.custom-link {
@@ -320,7 +319,7 @@ section {
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
-    text-align: center;
+    text-align: center;  
 }
 
 #testmonials .section-intro h1,
@@ -434,12 +433,9 @@ section {
 .logo-footer {
     font-size: 30px;
     font-weight: 900;
+    padding-left: 78px;
 }
 
-.logo-footer p {
-    text-align: left;
-    color: darkblue !important;
-}
 
 footer p,
 footer ul li a {
@@ -463,6 +459,10 @@ footer ul {
     background-attachment: fixed;
     padding-top: 100px;
     padding-bottom: 100px;
+}
+
+.social-links {
+    padding-left: 76px;
 }
 
 .footer-top .logo-footer {
