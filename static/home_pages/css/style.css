@@ -48,6 +48,7 @@ body {
   /* color: var(--color-light-gray); */
   color: white;
   background-color: white;
+  /* background-color: lightgreen; */
   min-height: 100vh;
 }
 
@@ -65,8 +66,8 @@ a {
 
 /* Main Center Container */
 .container {
-  max-width: 220rem;
-  width: 90%;
+  max-width: 135rem;
+  width: 95%;
   margin: auto;
 }
 
@@ -82,6 +83,7 @@ a {
   border-radius: 5px;
   box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.15);
   font-weight: 500;
+  /* background-color: orange !important; */
 }
 
 .btn--link {
@@ -161,8 +163,8 @@ a {
 }
 
 .avatar.avatar--small img {
-  width: 2.8rem;
-  height: 2.8rem;
+  width: 9.8rem;
+  height: 9.8rem;
 }
 
 .avatar.avatar--small:after {
@@ -214,7 +216,8 @@ a {
   position: absolute;
   top: 5rem;
   right: 0.5rem;
-  background: var(--color-dark-light);
+  /* background: var(--color-dark-light); */
+  background: white;
   border-radius: 5px;
   box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.15);
   overflow: hidden;
@@ -228,13 +231,14 @@ a {
 .dropdown-menu a {
   padding: 1.2rem 4rem;
   display: block;
-  color: var(--color-light) !important;
+  /* color: var(--color-light) !important; */
+  color: black !important;
   font-weight: 500;
   font-size: 1.4rem;
 }
 
 .dropdown-menu a:hover {
-  background-color: var(--color-dark-medium);
+  background-color: lightgray;
 }
 
 .dropdown-menu > a:not(:last-child) {
@@ -242,7 +246,8 @@ a {
 }
 
 .dropdown-menu a svg {
-  fill: var(--color-light);
+  /* fill: var(--color-light); */
+  fill: black;
 }
 
 .mobile-menu {
@@ -261,7 +266,6 @@ a {
     display: none;
   }
 }
-
 
 /*==============================
 =>  Layout for Main Content (Below Navbar)
@@ -508,8 +512,8 @@ a {
 
 .roomList__header {
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
   margin-bottom: 2.4rem;
 }
 
@@ -527,44 +531,45 @@ a {
 
 /*========== Cards (Center Card Display) ==========*/
 
+/* 1 */
 .roomListRoom {
-  margin-bottom: 2.4rem;
-  background-color: lightgrey;
-  border-radius: 1rem;
+  
+  margin-bottom: 2.2rem;
+  /* background-color: lightsalmon; */
+  background-color: rgba(211, 211, 211, 0.849);
+  border-radius: 2rem;
   padding: 2rem;
 }
 
-.roomListRoom__header {
+.exr {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+}
+
+.text-1, .text-2, .text-3 {
+  padding-left: 20px;
+}
+
+/* 2 */
+.roomListRoom__header {
+  align-items: flex-start;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  flex-direction: column;
 }
 
 .roomListRoom__author {
-  font-weight: 500;
-  display: flex;
-  align-items: center;
+  font-size: 25px;
+  font-weight: 800;
   gap: 1rem;
   color: black;
   text-transform: uppercase;
 }
 
-.roomListRoom__actions {
-  display: flex;
-  align-items: flex-start;
-  gap: 1rem;
-  position: relative;
-}
-
-.roomListRoom__actions span {
-  font-size: 1.4rem;
+.roomListRoom_fields {
+  font-size: 15px;
   font-weight: 500;
-}
-
-.roomListRoom__actions svg {
-  fill: var(--color-main);
-  width: 1.6rem;
-  height: 1.6rem;
+  color: black;
 }
 
 .roomListRoom__content {
@@ -587,24 +592,10 @@ a {
   border-top: 1px solid var(--color-dark);
   padding-top: 1rem;
   display: flex;
-  align-items: center;
-  justify-content: space-between;
+  flex-direction: row-reverse;
+  /* justify-content: 20px; */
+  gap: 1em;
 }
-
-/* .roomListRoom__joined {
-  color: var(--color-light-gray);
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  font-size: 1.4rem;
-  font-weight: 500;
-} */
-
-/* .roomListRoom__joined svg {
-  fill: var(--color-main);
-  width: 1.6rem;
-  height: 1.6rem;
-} */
 
 .roomListRoom__topic {
   padding: 2px 2rem;

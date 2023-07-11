@@ -1,14 +1,18 @@
+<!-- {% load static %}
 {% for room in rooms%}
 <div class="roomListRoom">
     <div class="roomListRoom__header">
-      <a href="{% url 'user-profile' room.host.id %}" class="roomListRoom__author">
-        <!-- <div class="avatar avatar--small">
-          <img src="" />
-        </div> -->
-        <span>Engineer {{room.host.username}}!</span>
+      <a href="{% url 'user-profile' room.host.id %}" >
+        <div class="avatar avatar--small">
+          <img src="{% static 'images/avatar.svg' %}"/>
+        </div>
+        <div class="roomListRoom__author">{{room.host.username}}!</div>
+        <div class="roomListRoom_fields">Software Engineer</div>
+        <div class="roomListRoom_fields">Islamabad</div>
+        <div class="roomListRoom_fields">COMSATS Islamabad, Wah Campus</div>
       </a>
       <div class="roomListRoom__actions">
-        <!-- <span>{{room.created|timesince}} ago</span> -->
+        <!-- <span>{{room.created|timesince}} ago</span> 
       </div>
     </div>
     <div class="roomListRoom__content">
@@ -21,4 +25,49 @@
       <p class="roomListRoom__topic">{{room.topic.name}}</p>
     </div>
   </div>
+  {% endfor %} -->
+
+{% load static %}
+{% for room in rooms%}
+
+<div class="roomListRoom">
+  <div class="exr">
+    <div class="avatar avatar--small">
+      <img src="{% static 'images/avatar.svg' %}"/>
+    </div>
+  
+    <!-- Header Start -->
+    <div class="roomListRoom__header">
+
+      <a href="{% url 'user-profile' room.host.id %}">
+      
+        <div class="roomListRoom__author text-1">Engineer Fahad Mohsin!</div>  
+        <div class="roomListRoom_fields text-2">Bachelors in Computer Science</div>  
+        <div class="roomListRoom_fields text-3">COMSATS University Islamabad</div>
+      
+      </a>
+
+    </div>
+
+          <!-- <div class="roomListRoom__author ner">{{room.host.username}}!</div> -->
+
+          <!-- 
+          <div class="roomListRoom_fields">COMSATS Islamabad, Wah Campus</div> -->
+    <!-- Header End -->
+  </div>  
+
+    <div class="roomListRoom__content">
+    </div>
+
+    <div class="roomListRoom__meta">
+      
+      <a href="{% url 'room' room.id %}" class="roomListRoom__joined">
+      </a>
+
+      <p class="roomListRoom__topic">Verified Account</p>
+      <p class="roomListRoom__topic">{{room.topic.name}}</p>
+      <p class="roomListRoom__topic">Islamabad</p>
+
+    </div>
+</div> 
   {% endfor %}

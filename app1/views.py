@@ -306,7 +306,6 @@ def user_error(request):
 def User_Log_Reg_Tem(request):
     return render(request, "user/user_log_reg.html")
 
-
 ########### Login and SignUp Views for Engineer ###########
 
 def engineer_profile(request):
