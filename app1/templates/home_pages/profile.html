@@ -3,57 +3,67 @@
 
 {% block content %}
 
-  <main class="profile-page layout layout--3">
-    <div class="container">
+<div class="search_card">
 
-      <!-- Topics Start -->
-      
-      {% include 'home_pages/topics_component.html' %}
-      
-      <!-- Topics End -->
+  <div class="main_image">
 
-      <!-- Room List Start -->
-
-      <div class="roomList">
-        <div class="profile">
-          <div class="profile__avatar">
-            <div class="avatar avatar--large active">
-              <!-- <img src="https://randomuser.me/api/portraits/men/11.jpg" /> -->
-              <img src="{% static 'images/avatar.svg' %}" />
-            </div>
-          </div>
-          <div class="profile__info">
-            <h3>{{user.username}}</h3>
-            <p>{{request.user.email}}</p>
-            {% if request.user == user %}
-            <a href="{% url 'update-user' %}" class="btn btn--main btn--pill">Edit Profile</a>
-            {% endif %}
-          </div>
-          <div class="profile__about">
-            <h3>About</h3>
-            <p>
-             
-            </p>
-          </div>
-        </div>
-
-        <div class="roomList__header">
-          <div>
-            <h2>Recent Posts by {{user.username}}</a>
-            </h2>
-          </div>
-        </div>
-        {% include 'home_pages/feed_component.html' %}
-      </div>
-
-      <!-- Room List End -->
-      
-      <!-- Activities Start -->
-
-      {% include 'home_pages/activity_component.html' %}
-
-      <!-- Activities End -->
-      
+    <div class="profile_pic">
+      <img src="https://i.imgur.com/bmZAxnX.jpg" alt="profile_picture">
     </div>
-  </main>
+
+    <div class="names">
+      <h1>RICHARD</h1>
+      <h1>&nbsp;&nbsp;SANCHEZ</h1>
+      <p>Product Designer</p>
+    </div>
+
+    <!-- Left Side of the CV Template -->
+  <div class="left_side" >
+    <div class="about_me">
+      <h1>ABOUT ME</h1>
+
+      <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
+        Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
+        when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+    </div>
+
+    <div class="expertise">
+      <h1>EXPERTISE</h1>
+      <ul>
+        <li>Management Skills</li>
+        <li>Creativity</li>
+        <li>Digital Marketing</li>
+        <li>Negotiation</li>
+        <li>Critical Thinking</li>
+        <li>Leadership</li>
+      </ul>  
+    </div>
+
+  </div>
+  
+  <div class="right_side">
+    
+    <div class="experience">
+      <h1>EXPERIENCE</h1>
+      <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
+        Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
+        when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+    </div>
+
+    <div class="education">
+      <h1>EDUCATION</h1>
+      <p>Bachelors in Software Engineering</p>
+      <p>COMSATS University Islamabad, Wah Cantt</p>
+
+      <p>Higher Secondary Language</p>
+      <p>Beacon House School System</p>
+
+    </div>
+
+  </div>
+
+  </div>
+
+</div>
+
 {% endblock content%}
